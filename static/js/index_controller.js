@@ -3,7 +3,7 @@ $(document).ready(() =>{                                                    //if
         event.preventDefault();
 
         var serializeData = $("#signup-form").serializeArray();             //serialize form info into array
-        var data = [];
+        var data = {};
         for (let i=0;i<serializeData.length;i++){                           //for loop take info from array serializeData and add on data
             data[serializeData[i]["name"]] = serializeData[i]["value"]
         }
@@ -12,12 +12,11 @@ $(document).ready(() =>{                                                    //if
         $.ajax({
             url: "controllers/index.php",
             type: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: data
-        }).done(function(response, textStatus, jqXHR) {
-            
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.error("The following error occurred: " + textStatus, errorThrown);
-        });
+            dataType: "json",
+            data: data,
+            success: function(data){
+                console.log(data)
+            }
+        })
     });
 });
