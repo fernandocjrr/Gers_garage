@@ -4,9 +4,10 @@ CREATE TABLE user
     email       VARCHAR(100),
     password    VARCHAR(100),
     first_name  VARCHAR(100),
-    surname     VARHCAR(100),
+    surname     VARCHAR(100),
     phone       VARCHAR(20),
     address     VARCHAR(100),
+    admin       BOOLEAN DEFAULT FALSE,
     active      BOOLEAN DEFAULT TRUE,
     PRIMARY KEY (user_id )
 )

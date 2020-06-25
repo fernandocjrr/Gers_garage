@@ -1,21 +1,25 @@
-$(document).ready(() =>{                                                    //if page ready
+$(document).ready(() => {                                                    //if page ready
     $("#signup-form").on("submit", (event) => {                             //if event submit
         event.preventDefault();
 
-        var serializeData = $("#signup-form").serializeArray();             //serialize form info into array
-        var data = {};
-        for (let i=0;i<serializeData.length;i++){                           //for loop take info from array serializeData and add on data
-            data[serializeData[i]["name"]] = serializeData[i]["value"]
-        }
-        console.log(data)
+        var serializedData = $("#signup-form").serializeArray();             //serialize form info into array
 
         $.ajax({
             url: "controllers/index.php",
             type: "POST",
             dataType: "json",
-            data: data,
-            success: function(data){
-                console.log(data)
+            data: serializedData,
+            success: function (data) {
+                if (data["success"]) {
+                    $('#signup-modal').modal('hide');
+                    alert("User signed up");
+                } else {
+                    if (data["exists"]) {
+                        alert("Email already used");
+                    } else {
+                        alert("An error occurred");
+                    }
+                }
             }
         })
     });
