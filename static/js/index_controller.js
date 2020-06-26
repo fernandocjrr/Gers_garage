@@ -36,7 +36,7 @@ $(document).ready(() => {                                                    //i
             data: serializedData,
             success: function (data) {
                 if (data["success"]) {
-                    window.location.href = "../home.html";
+                    window.location.href = "homeAdmin.php";
                 } else {
                     if (data["wrong"]) {
                         alert("Email or password wrong")

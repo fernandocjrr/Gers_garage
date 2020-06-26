@@ -4,8 +4,6 @@ require_once __DIR__ . "/../models/user.php";
 
 $userModel = new User();											//new instance of class user from user.php
 
-use function PHPSTORM_META\type;							        //??
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {							//
 	if (isset($_POST["login"])) {
 
@@ -14,11 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {							//
 
 		$response = $userModel->login($email, $password);
 		
+		
 		if ($response["success"]) {
 			if (empty($response["data"])) {
 				$response = array("success" => FALSE, "wrong" => TRUE);
 				echo json_encode($response);
 			} else {
+				$userModel->setUserSessionAndCookie($response["data"][0]["user_id"]);
 				$response = array("success" => TRUE);
 				echo json_encode($response);
 			}

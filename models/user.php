@@ -34,8 +34,7 @@ class User
             return array("success" => TRUE);                                                            //return array ['success' = true]
         } else {
             $this->disconnect();                                                                        //if query dont work (what comes from dp?) disconnect
-            return array("success" => FALSE);                                                           //return array ['success' = false]
-            ]
+            return array("success" => FALSE);                                                           //return array ['success' = false
         }
     }
 
@@ -53,7 +52,7 @@ class User
             return array("success" => TRUE, "data" => $result);                                         //return user found and success = true
         } else {
             $this->disconnect();                                                                        //disconnect db
-            return array("success" => FALSE);                                                           //no user found success = false
+            return array("success" => FALSE);                                                           //problem
         }
     }
 
@@ -66,6 +65,45 @@ class User
 
         if ($stmt) {
             $stmt->bind_param("ss", $sp_email, $sp_password);
+            $stmt->execute();
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $this->disconnect();
+            return array("success" => TRUE, "data" => $result);
+        } else {
+            $this->disconnect();
+            return array("success" => FALSE);
+        }
+    }
+
+    public function setUserSessionAndCookie($userID)                     //
+    {
+        session_start();
+        $_SESSION["user_".strval($userID)] = TRUE;
+        setcookie ("userID", $userID, 0);
+    }
+
+    public function checkUserSession($userID)                     //
+    {
+        return isset ($_SESSION["user_".strval($userID)]);
+    }
+
+    public function getUserCookie()                     //
+    {
+        if (isset($_COOKIE["userID"])){
+            return $_COOKIE["userID"];
+        } else {
+            return null;
+        }
+    }
+
+    public function isAdmin($userID)
+    {
+        $this->connect("localhost", "root", "", "db_garage");
+
+        $stmt = $this->connection->prepare("SELECT admin FROM user WHERE user_id = ? LIMIT 1");
+
+        if ($stmt) {
+            $stmt->bind_param("i", $userID);
             $stmt->execute();
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $this->disconnect();

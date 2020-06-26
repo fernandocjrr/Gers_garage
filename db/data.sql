@@ -8,6 +8,5 @@ CREATE TABLE user
     phone       VARCHAR(20),
     address     VARCHAR(100),
     admin       BOOLEAN DEFAULT FALSE,
-    active      BOOLEAN DEFAULT TRUE,
     PRIMARY KEY (user_id )
 )
