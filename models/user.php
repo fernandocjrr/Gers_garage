@@ -77,13 +77,18 @@ class User
 
     public function setUserSessionAndCookie($userID)                     //
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $_SESSION["user_".strval($userID)] = TRUE;
-        setcookie ("userID", $userID, 0);
+        setcookie ("userID", $userID, 0, "/");
     }
 
     public function checkUserSession($userID)                     //
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         return isset ($_SESSION["user_".strval($userID)]);
     }
 
