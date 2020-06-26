@@ -47,13 +47,13 @@ class User
 
         if ($stmt) {                                                                                    //if stmt true
             $stmt->bind_param("s", $sp_email);                                                          //replace ? for parameter
-            $stmt->execute();                                                                           //
-            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            $this->disconnect();
-            return array("success" => TRUE, "data" => $result);
+            $stmt->execute();                                                                           //execute query
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);                                     //store in $result the user found
+            $this->disconnect();                                                                        //disconnect db
+            return array("success" => TRUE, "data" => $result);                                         //return user found and success = true
         } else {
-            $this->disconnect();
-            return array("success" => FALSE);
+            $this->disconnect();                                                                        //disconnect db
+            return array("success" => FALSE);                                                           //no user found success = false
         }
     }
 

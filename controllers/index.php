@@ -2,11 +2,11 @@
 
 require_once __DIR__ . "/../models/user.php";
 
-$userModel = new User();
+$userModel = new User();											//new instance of class user from user.php
 
-use function PHPSTORM_META\type;
+use function PHPSTORM_META\type;							        //??
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {							//
 	if (isset($_POST["login"])) {
 
 		$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -27,8 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			echo json_encode($response);
 		}
 	} else {
-
-
 		$fname = filter_input(INPUT_POST, "fname", FILTER_SANITIZE_EMAIL);
 		$surname = filter_input(INPUT_POST, "surname", FILTER_SANITIZE_EMAIL);
 		$address = filter_input(INPUT_POST, "address", FILTER_SANITIZE_EMAIL);
