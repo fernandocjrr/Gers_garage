@@ -1,3 +1,18 @@
+<?php
+
+require_once __DIR__ . "/models/user.php";
+$userModel = new User();
+
+$userID = $userModel->getUserCookie();
+
+if (isset($userID)){
+  if ($userModel->checkUserSession($userID)){
+    header("Location: views/home.php");
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
