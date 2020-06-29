@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Vehicle
 {
     private $connection;
 
@@ -19,15 +19,15 @@ class User
         mysqli_close($this->connection);
     }
 
-    public function createUser($fname, $surname, $address, $phone, $sp_email, $sp_password) //sign in function
+    public function addVehicle($vehicle_type, $licence_details, $engine, $vehicle_details_id) //sign in function
     {
         $this->connect("localhost", "root", "", "db_garage");                               //connect to db
 
-        $stmt = $this->connection->prepare("INSERT INTO user (first_name, surname, phone, address, email, password)
-        VALUES (?,?,?,?,?,?)");                 //????
+        $stmt = $this->connection->prepare("INSERT INTO vehicle (vehicle_type, licence_details, engine, vehicle_details_id)
+        VALUES (?,?,?,?)");                 //????
 
         if ($stmt) {                                                                                    //if stmt succsessful
-            $stmt->bind_param("ssssss", $fname, $surname, $address, $phone, $sp_email, $sp_password);   //replace ? for parameter
+            $stmt->bind_param("sssi", $vehicle_type, $licence_details, $engine, $vehicle_details_id);   //replace ? for parameter
             $stmt->execute();                                                                           //execute query
             $this->disconnect();                                                                        //disconect from db
             return array("success" => TRUE);                                                            //return array ['success' = true]
