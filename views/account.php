@@ -9,11 +9,11 @@ $response = $userModel->isAdmin($userID);
 if (isset($userID)) {
   if (!$userModel->checkUserSession($userID)) {
     echo "<script> alert ('Please Login First');
-    window.location = 'index.php'</script>";
+    window.location = '../index.php'</script>";
   }
 } else {
   echo "<script> alert ('Please Login First');
-  window.location = 'index.php'</script>";
+  window.location = '../index.php'</script>";
 }
 
 if ($response["success"]) {

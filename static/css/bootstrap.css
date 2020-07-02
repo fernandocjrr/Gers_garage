@@ -3978,6 +3978,12 @@ tbody.collapse.show {
   text-decoration: none;
 }
 
+.navbar-nav.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translatex(-50%);
+}
+
 .navbar-nav {
   display: -webkit-box;
   display: -ms-flexbox;

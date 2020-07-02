@@ -38,6 +38,7 @@ CREATE TABLE db_garage.vehicle_details
     manufacturer            VARCHAR(100),
     model                   VARCHAR(100),
     year                    INTEGER,
+    type                     VARCHAR(100),
     PRIMARY KEY (vehicle_details_id)
 )
 
