@@ -1,10 +1,16 @@
 <?php
 
 require_once __DIR__ . "/../models/user.php";
+require_once __DIR__ . "/../models/vehicle_details.php";
+require_once __DIR__ . "/../models/vehicle.php";
+
 $userModel = new User();
+$vehicleModel = new Vehicle();
+$vehicleDetailsModel = new VehicleDetails();
 
 $userID = $userModel->getUserCookie();
 $response = $userModel->isAdmin($userID);
+$dbVehicles = $vehicleDetailsModel->getVehicleDetails();
 
 if (isset($userID)) {
   if (!$userModel->checkUserSession($userID)) {
@@ -21,6 +27,7 @@ if ($response["success"]) {
     header("Location: accountAdmin.php");
   }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +38,7 @@ if ($response["success"]) {
   <meta name="viewport" content="width=Bootstree, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Boostrap</title>
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
   <link rel="stylesheet" href="../static/css/bootstrap.css">
 </head>
 
@@ -89,68 +97,52 @@ if ($response["success"]) {
 
           <form id="addvehicle-form">
             <div class="modal-body">
+              
               <div class="form-group">
+                  <label for="type">Type</label>
+                  <select class="form-control">
+                    <option>Car</option>
+                    <option>Motorbike</option>
+                    <option>Small Van</option>
+                    <option>Small bus</option>
+                  </select>
+                </div>
+
                 <div class="form-group">
-                  <div class="btn-group">
+                  <label for="manufacturer">Manufacturer</label>
+                  <select class="form-control" id=selectManufacturer>
                     
-                  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Type
-  </button>
-                    <div class="dropdown-menu dropdown-menu-left">
-                      <button class="dropdown-item" type="button">Motorbike</button>
-                      <button class="dropdown-item" type="button">Car</button>
-                      <button class="dropdown-item" type="button">Small Van</button>
-                      <button class="dropdown-item" type="button">Small Bus</button>
-                    </div>
-                  </div>
-
+                  </select>
                 </div>
+
                 <div class="form-group">
-                  
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Manufacturer
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-left">
-                      <button class="dropdown-item" type="button">Action</button>
-                      <button class="dropdown-item" type="button">Another action</button>
-                      <button class="dropdown-item" type="button">Something else here</button>
-                    </div>
-                  </div>
+                  <label for="model">Model</label>
+                  <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="year">Year</label>
+                  <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+
                 
-                </div>
-                <div class="form-group">
-                  
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Model
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-left">
-                      <button class="dropdown-item" type="button">Action</button>
-                      <button class="dropdown-item" type="button">Another action</button>
-                      <button class="dropdown-item" type="button">Something else here</button>
-                    </div>
-                  </div>
-
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Year
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-left">
-                      <button class="dropdown-item" type="button">Action</button>
-                      <button class="dropdown-item" type="button">Another action</button>
-                      <button class="dropdown-item" type="button">Something else here</button>
-                    </div>
-                  </div>
-
-                </div>
-
               </div>
-            </div>
 
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Add</button>
-            </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Add</button>
+              </div>
           </form>
         </div>
       </div>
@@ -179,10 +171,11 @@ if ($response["success"]) {
       <p>© Company 2017-2020</p>
     </footer>
 
+    
     <script src="../static/js/jquery-3.5.1.min.js"></script>
     <script src="../static/js/bootstrap.bundle.min.js"></script>
     <script src="../static/js/bootstrap.js"></script>
-    <script src="../static/js/index_controller.js"></script>
+    <script src="../static/js/account_controller.js"></script>
 
 
 </body>
