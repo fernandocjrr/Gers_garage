@@ -100,40 +100,33 @@ if ($response["success"]) {
               
               <div class="form-group">
                   <label for="type">Type</label>
-                  <select class="form-control">
-                    <option>Car</option>
-                    <option>Motorbike</option>
-                    <option>Small Van</option>
-                    <option>Small bus</option>
+                  <select class="form-control" id="selectType">
+                    <option>Chose a type</option>
+                    <option value="car">Car</option>
+                    <option value="motorbike">Motorbike</option>
+                    <option value="small van">Small Van</option>
+                    <option value="small bus">Small bus</option>
                   </select>
                 </div>
 
                 <div class="form-group">
                   <label for="manufacturer">Manufacturer</label>
-                  <select class="form-control" id=selectManufacturer>
-                    
+                  <select class="form-control" id="selectManufacturer">
+                  <option>Chose a manufacturer</option>                    
                   </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="selectModel">
                   <label for="model">Model</label>
                   <select class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <option>Chose a model</option>
                   </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="selectYear">
                   <label for="year">Year</label>
                   <select class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <option>Chose a year</option>
                   </select>
                 </div>
 
