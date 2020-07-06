@@ -60,7 +60,7 @@ if (isset($userID)){
 
       <form id="login" class="form-inline my-2 my-lg-0" method="POST">
         <input class="form-control mr-sm-2" type="text" name="email" placeholder="Email">
-        <input class="form-control mr-sm-2" type="text" name="password" placeholder="Password">
+        <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password">
         <input type="hidden" name="login" value="1">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
         <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal"
@@ -79,7 +79,7 @@ if (isset($userID)){
 
         <form id="signup-form">
           <div class="modal-body">
-            <div class="form-group">
+            
               <div class="form-group">
                 <input type="text" name="fname" class="form-control" placeholder="First Name" required>
               </div>
@@ -98,7 +98,7 @@ if (isset($userID)){
               <div class="form-group">
                 <input type="password" name="sp_password" class="form-control" placeholder="Password" required>
               </div>
-            </div>
+            
           </div>
 
           <div class="modal-footer">

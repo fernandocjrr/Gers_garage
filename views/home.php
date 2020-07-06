@@ -17,7 +17,7 @@ if (isset($userID)) {
 
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 
 <head>
@@ -60,7 +60,6 @@ if (isset($userID)) {
 
       <a href="account.php" class="btn btn-outline-success my-2 my-sm-0"> <span class="glyphicon glyphicon-user"></span>User Account</a>
       <span class="glyphicon glyphicon-user"></span>
-      <a class="btn btn-outline-success my-2 my-sm-0" href="account.php">Account</a>
 
     </div>
   </nav>
@@ -70,7 +69,7 @@ if (isset($userID)) {
   < <main role="main">
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="jumbotron mt-5 mb-0">
       <div class="container">
         <h1 class="display-3">Hello, world!</h1>
         <p>This is a template for a simple marketing or informational website. It includes a large callout called a

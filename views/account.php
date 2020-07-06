@@ -3,14 +3,17 @@
 require_once __DIR__ . "/../models/user.php";
 require_once __DIR__ . "/../models/vehicle_details.php";
 require_once __DIR__ . "/../models/vehicle.php";
+require_once __DIR__ . "/../models/own.php";
 
 $userModel = new User();
 $vehicleModel = new Vehicle();
 $vehicleDetailsModel = new VehicleDetails();
+$ownModel = new Own();
 
 $userID = $userModel->getUserCookie();
 $response = $userModel->isAdmin($userID);
 $dbVehicles = $vehicleDetailsModel->getVehicleDetails();
+
 
 if (isset($userID)) {
   if (!$userModel->checkUserSession($userID)) {
@@ -26,6 +29,18 @@ if ($response["success"]) {
   if ($response["data"][0]["admin"]) {
     header("Location: accountAdmin.php");
   }
+}
+
+$response = $ownModel->getVehiclesByUser($userID);
+if ($response['success']) {
+  $vehicleByUser = $response['data'];
+} else {
+  $vehicleByUser = array();
+}
+
+$response = $userModel->getUserInfo($userID);
+if ($response['success']) {
+  $UserInfo = $response['data'][0];
 }
 
 ?>
@@ -77,14 +92,49 @@ if ($response["success"]) {
 
     </div>
   </nav>
-  < <main role="main">
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#addvehicle-modal">Add Vehicle</button>
+  <main role="main" class="pt-5">
+
+    <div class="container-fluid pt-5">
+      <div class="row pl-2">
+        <div class="col-md-3 bg-light">
+          <div class="row">
+            <button class="btn btn-outline-info ml-2 float-right" type="button" data-toggle="modal" data-target="#addvehicle-modal">Add Vehicle</button>
+            </div>
+            <div class="row">
+              <p><strong>User Name: </strong> <?php echo $UserInfo["first_name"]. ' ' . $UserInfo["surname"]; ?></p>
+            </div>
+            <div class="row">
+              <p><strong>Phone: </strong> <?php echo $UserInfo["phone"]; ?></p>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+          <div class="row ml-2">
+            
+            <?php for ($i = 0; $i < count($vehicleByUser); $i++) { ?>
+              <div class="card mr-1" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title text-capitalize"><?php echo $vehicleByUser[$i]["type"]; ?></h5>
+                  <h6 class="card-subtitle mb-2 text-muted text-capitalize">
+                    <?php echo $vehicleByUser[$i]["manufacturer"] . ' ' . $vehicleByUser[$i]["model"]; ?>
+                  </h6>
+                  <p class="card-text mb-0"> <strong>Year: </strong> <?php echo $vehicleByUser[$i]["year"]; ?></p>
+                  <p class="card-text mb-0 text-capitalize"> <strong>Engine: </strong> <?php echo $vehicleByUser[$i]["engine"]; ?></p>
+                  <p class="card-text"> <strong>Licence: </strong> <?php echo $vehicleByUser[$i]["licence_details"]; ?></p>
+                  <div class="float-right">
+                    <a href="#" class="card-link">Book service</a>
+                  </div>
+                </div>
+              </div>
+            <?php } ?>
+
+          </div>
+
+        </div>
       </div>
     </div>
+
 
 
     <div class="modal fade" role="dialog" id="addvehicle-modal">
@@ -97,45 +147,60 @@ if ($response["success"]) {
 
           <form id="addvehicle-form">
             <div class="modal-body">
-              
+
               <div class="form-group">
-                  <label for="type">Type</label>
-                  <select class="form-control" id="selectType">
-                    <option>Chose a type</option>
-                    <option value="car">Car</option>
-                    <option value="motorbike">Motorbike</option>
-                    <option value="small van">Small Van</option>
-                    <option value="small bus">Small bus</option>
-                  </select>
-                </div>
+                <label for="type">Type</label>
+                <select class="form-control" id="selectType">
+                  <option>Chose a type</option>
+                  <option value="car">Car</option>
+                  <option value="motorbike">Motorbike</option>
+                  <option value="small van">Small Van</option>
+                  <option value="small bus">Small bus</option>
+                </select>
+              </div>
 
-                <div class="form-group">
-                  <label for="manufacturer">Manufacturer</label>
-                  <select class="form-control" id="selectManufacturer">
-                  <option>Chose a manufacturer</option>                    
-                  </select>
-                </div>
+              <div class="form-group">
+                <label for="manufacturer">Manufacturer</label>
+                <select class="form-control" id="selectManufacturer">
+                  <option>Chose a manufacturer</option>
+                </select>
+              </div>
 
-                <div class="form-group" id="selectModel">
-                  <label for="model">Model</label>
-                  <select class="form-control">
+              <div class="form-group">
+                <label for="model">Model</label>
+                <select class="form-control" id="selectModel">
                   <option>Chose a model</option>
-                  </select>
-                </div>
+                </select>
+              </div>
 
-                <div class="form-group" id="selectYear">
-                  <label for="year">Year</label>
-                  <select class="form-control">
+              <div class="form-group">
+                <label for="year">Year</label>
+                <select name="vehicle_details_id" class="form-control" id="selectYear">
                   <option>Chose a year</option>
-                  </select>
-                </div>
-
-                
+                </select>
               </div>
 
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Add</button>
+              <div class="form-group">
+                <label for="type">Engine</label>
+                <select class="form-control" name="selectEngine" id="selectEngine">
+                  <option>Chose an engine</option>
+                  <option value="diesel">Diesel</option>
+                  <option value="petrol">Petrol</option>
+                  <option value="hybrid">Hybrid</option>
+                  <option value="electric">Electric</option>
+                </select>
               </div>
+
+              <div class="form-group">
+                <input type="text" name="licence" id="licence" class="form-control" placeholder="Licence Number" required>
+              </div>
+
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Add</button>
+            </div>
           </form>
         </div>
       </div>
@@ -158,17 +223,17 @@ if ($response["success"]) {
 
     </div> <!-- /container -->
 
-    </main>
+  </main>
 
-    <footer class="container">
-      <p>© Company 2017-2020</p>
-    </footer>
+  <footer class="container text-center">
+    <p>© Company 2017-2020</p>
+  </footer>
 
-    
-    <script src="../static/js/jquery-3.5.1.min.js"></script>
-    <script src="../static/js/bootstrap.bundle.min.js"></script>
-    <script src="../static/js/bootstrap.js"></script>
-    <script src="../static/js/account_controller.js"></script>
+
+  <script src="../static/js/jquery-3.5.1.min.js"></script>
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/bootstrap.js"></script>
+  <script src="../static/js/account_controller.js"></script>
 
 
 </body>

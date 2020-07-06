@@ -24,7 +24,6 @@ CREATE TABLE db_garage.own
 CREATE TABLE db_garage.vehicle
 (   
     vehicle_id                     INTEGER NOT NULL AUTO_INCREMENT,
-    vehicle_type                    VARCHAR(100),
     licence_details                 VARCHAR(100),
     engine                          VARCHAR(100),
     vehicle_details_id              INTEGER NOT NULL,

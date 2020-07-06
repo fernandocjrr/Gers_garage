@@ -117,4 +117,22 @@ class User
             return array("success" => FALSE);
         }
     }
+
+    public function getUserInfo($userId) //sign in function
+    {
+        $this->connect("localhost", "root", "", "db_garage");                               //connect to db
+
+        $stmt = $this->connection->prepare("SELECT first_name, surname, phone, address, email FROM user WHERE user_id = ?");                 //????
+
+        if ($stmt) {                                                                                    //if stmt succsessful
+            $stmt->bind_param("i", $userId);   //replace ? for parameter
+            $stmt->execute();
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);                                           //execute query
+            $this->disconnect();                                                                        //disconect from d
+            return array("success" => TRUE, "data" => $result);                                              //return array ['success' = true]
+        } else {
+            $this->disconnect();                                                                //if query dont work (what comes from dp?) disconnect
+            return array("success" => FALSE);                                                           //return array ['success' = false
+        }
+    }
 }

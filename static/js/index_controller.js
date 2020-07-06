@@ -7,7 +7,7 @@ $(document).ready(() => {                                                    //i
         $.ajax({
             url: "controllers/index.php",
             type: "POST",
-            dataType: "json",
+            dataType: "json", 
             data: serializedData,
             success: function (data) {
                 if (data["success"]) {                      //if success in data array = true
