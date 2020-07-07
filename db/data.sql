@@ -55,6 +55,18 @@ CREATE TABLE db_garage.booking
 (   
     booking_id                  INTEGER NOT NULL AUTO_INCREMENT,
     fix_type                    VARCHAR(100),
+    details                     VARCHAR(100),
     date                        DATE,
     PRIMARY KEY (booking_id)
+)
+
+CREATE TABLE db_garage.cost
+(   
+    cost_id                     INTEGER NOT NULL AUTO_INCREMENT,
+    quantity                    INTEGER,
+    cost                        DOUBLE,
+    description                 VARCHAR(100),
+    booking_id                  INTEGER NOT NULL,
+    PRIMARY KEY (cost_id),
+    FOREIGN KEY (booking_id)        REFERENCES booking (booking_id)
 )
