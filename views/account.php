@@ -55,7 +55,7 @@ if ($response['success']) {
   <title>Boostrap</title>
   <link rel="stylesheet" href="../static/css/bootstrap.css">
   <link rel="stylesheet" href="../static/css/bootstrap.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 </head>
 
 <body>
@@ -89,38 +89,38 @@ if ($response['success']) {
           </div>
         </li>
       </ul>
-      <a class="btn btn-outline-success my-2 my-sm-0" href="account.php"><i class="fa fa-user-o">Account</i></a>
+      <a class="btn btn-outline-success my-2 my-sm-0" href="account.php"><i class="fa fa-user-circle-o "> Account</i></a>
 
     </div>
   </nav>
 
-<!-----------------------------------------------SIDE BAR---------------------------------------------->
+  <!-----------------------------------------------SIDE BAR---------------------------------------------->
 
   <main role="main" class="pt-5">
 
     <div class="container-fluid pt-5">
       <div class="row pl-2">
         <div class="col-md-3 bg-light">
-            <div class="row">
-              <p><strong>User Name: </strong> <?php echo $UserInfo["first_name"]. ' ' . $UserInfo["surname"]; ?></p>
-            </div>
-            <div class="row">
-              <p><strong>Phone: </strong> <?php echo $UserInfo["phone"]; ?></p>
-            </div>
-            <div class="row">
-              <p><strong>Address: </strong> <?php echo $UserInfo["address"]; ?></p>
-            </div>
-            <div class="row">
-              <p><strong>Email: </strong> <?php echo $UserInfo["email"]; ?></p>
-            </div>
+          <div class="row">
+            <p><strong>User Name: </strong> <?php echo $UserInfo["first_name"] . ' ' . $UserInfo["surname"]; ?></p>
+          </div>
+          <div class="row">
+            <p><strong>Phone: </strong> <?php echo $UserInfo["phone"]; ?></p>
+          </div>
+          <div class="row">
+            <p><strong>Address: </strong> <?php echo $UserInfo["address"]; ?></p>
+          </div>
+          <div class="row">
+            <p><strong>Email: </strong> <?php echo $UserInfo["email"]; ?></p>
+          </div>
         </div>
 
-<!-----------------------------------------------VEHICLE CARDS---------------------------------------------->
+        <!-----------------------------------------------VEHICLE CARDS---------------------------------------------->
 
         <div class="col-md-9">
 
           <div class="row ml-2">
-            
+
             <?php for ($i = 0; $i < count($vehicleByUser); $i++) { ?>
               <div class="card mr-1" style="width: 15rem;">
                 <div class="card-body">
@@ -132,25 +132,24 @@ if ($response['success']) {
                   <p class="card-text mb-0 text-capitalize"> <strong>Engine: </strong> <?php echo $vehicleByUser[$i]["engine"]; ?></p>
                   <p class="card-text"> <strong>Licence: </strong> <?php echo $vehicleByUser[$i]["licence_details"]; ?></p>
                   <div class="float-right">
-                  <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal"
-                   data-target="#booking-modal">Create Booking</button>
+                    <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#booking-modal">Create Booking</button>
                   </div>
                 </div>
               </div>
             <?php } ?>
 
-            <button class="card text-center btn-outline-success" data-toggle="modal" data-target="#addvehicle-modal"" style="width: 15rem;">
-            <div class="card-body">
-                  <h3>ADD VEHICLE</h3>
-            </div>
+            <button class="card text-center btn-outline-success" data-toggle="modal" data-target="#addvehicle-modal"" style=" width: 15rem;">
+              <div class="card-body">
+                <h3>ADD VEHICLE</h3>
+              </div>
             </button>
 
-            </div>
+          </div>
         </div>
       </div>
     </div>
 
-<!-----------------------------------------------ADD VEHICLE MODAL---------------------------------------------->
+    <!-----------------------------------------------ADD VEHICLE MODAL---------------------------------------------->
 
     <div class="modal fade" role="dialog" id="addvehicle-modal">
       <div class="modal-dialog">
@@ -221,7 +220,7 @@ if ($response['success']) {
       </div>
     </div>
 
-<!-----------------------------------------------BOOKING MODAL---------------------------------------------->
+    <!-----------------------------------------------BOOKING MODAL---------------------------------------------->
 
     <div class="modal fade" role="dialog" id="booking-modal">
       <div class="modal-dialog">
@@ -239,27 +238,35 @@ if ($response['success']) {
                 <select class="form-control" id="selectType">
                   <option>Chose a type</option>
                   <option value="anual service">Annual Service (min €200)</option>
-                  <option value="major service">Major Service	(min €500)</option>
+                  <option value="major service">Major Service (min €500)</option>
                   <option value="major repair">Major Repair (min €500)</option>
                   <option value="other repair">Other Repair</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <textarea type="text" name="details" id="details" class="form-control" placeholder="Repair/Service Details" required></textarea>
+              <label for="type">Description</label>
+                <textarea type="text" name="details" id="details" class="form-control" placeholder="Describe the repair/fault" required></textarea>
               </div>
 
-              <div style="overflow:hidden;">
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-8">
-                <div id="datetimepicker12"></div>
-            </div>
-        </div>
-    </div>
- 
-</div>
-              
+              <div class="form-group">
+                <div class="row">
+                  <div class='col-sm-6'>
+                    <div class="form-group">  
+                      <div class='input-group date' id='datetimepicker3'>
+                        <input type='text' class="form-control" placeholder="Date"/>
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <span class="fa fa-calendar"></span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
 
 
             </div>
@@ -295,23 +302,24 @@ if ($response['success']) {
     <p>© Company 2017-2020</p>
   </footer>
 
-  
-  
+
+
 
   <script src="../static/js/jquery-3.5.1.min.js"></script>
   <script src="../static/js/bootstrap.bundle.min.js"></script>
   <script src="../static/js/bootstrap.js"></script>
   <script src="../static/js/account_controller.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker12').datetimepicker({
-                inline: true,
-                sideBySide: true
-            });
-        });
-    </script>
-
+    $(function() {
+      $('#datetimepicker3').datepicker({
+        format: 'mm/dd/yyyy',
+    startDate: '-1d',
+    locale: 'pt'
+      });
+    });
+  </script>
 </body>
 
 </html>
