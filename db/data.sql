@@ -57,6 +57,7 @@ CREATE TABLE db_garage.booking
     fix_type                    VARCHAR(100),
     details                     VARCHAR(100),
     date                        DATE,
+    status                     VARCHAR(100) DEFAULT "booked",
     PRIMARY KEY (booking_id)
 )
 

@@ -132,7 +132,7 @@ if ($response['success']) {
                   <p class="card-text mb-0 text-capitalize"> <strong>Engine: </strong> <?php echo $vehicleByUser[$i]["engine"]; ?></p>
                   <p class="card-text"> <strong>Licence: </strong> <?php echo $vehicleByUser[$i]["licence_details"]; ?></p>
                   <div class="float-right">
-                    <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#booking-modal">Create Booking</button>
+                    <button onClick="createBooking(<?php echo $vehicleByUser[$i]["vehicle_id"] ?>)" class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#booking-modal">Create Booking</button>
                   </div>
                 </div>
               </div>
@@ -231,11 +231,12 @@ if ($response['success']) {
           </div>
 
           <form id="booking-form">
+            <input type="hidden" id="vehID" name="vehID"/>
             <div class="modal-body">
 
               <div class="form-group">
                 <label for="type">Booking Type</label>
-                <select class="form-control" id="selectType">
+                <select class="form-control" id="selectType" name="selectType">
                   <option>Chose a type</option>
                   <option value="anual service">Annual Service (min €200)</option>
                   <option value="major service">Major Service (min €500)</option>
@@ -245,16 +246,16 @@ if ($response['success']) {
               </div>
 
               <div class="form-group">
-              <label for="type">Description</label>
+                <label for="type">Description</label>
                 <textarea type="text" name="details" id="details" class="form-control" placeholder="Describe the repair/fault" required></textarea>
               </div>
 
               <div class="form-group">
                 <div class="row">
                   <div class='col-sm-6'>
-                    <div class="form-group">  
+                    <div class="form-group">
                       <div class='input-group date' id='datetimepicker3'>
-                        <input type='text' class="form-control" placeholder="Date"/>
+                        <input type='text' name="date" class="form-control" placeholder="Date" />
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <span class="fa fa-calendar"></span>
@@ -266,13 +267,10 @@ if ($response['success']) {
 
                 </div>
               </div>
-
-
-
             </div>
 
             <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Add</button>
+              <button type="submit" class="btn btn-success">BOOK</button>
             </div>
           </form>
         </div>
@@ -311,15 +309,7 @@ if ($response['success']) {
   <script src="../static/js/account_controller.js"></script>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      $('#datetimepicker3').datepicker({
-        format: 'mm/dd/yyyy',
-    startDate: '-1d',
-    locale: 'pt'
-      });
-    });
-  </script>
+
 </body>
 
 </html>

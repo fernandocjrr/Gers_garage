@@ -102,4 +102,37 @@ $(document).ready(() => {
         })
     });
 
+    $("#booking-form").on("submit", (event) => {                             //if event submit from signup-form
+        event.preventDefault();
+
+        var serializedData = $("#booking-form").serializeArray();             //serialize form info into array
+        
+        $.ajax({
+            url: "../controllers/booking.php",
+            type: "POST",
+            dataType: "json", 
+            data: serializedData,
+            success: function (data) {
+                if (data["success"]) {                      //if success in data array = true
+                    $('#booking-modal').modal('hide');       //close modal
+                    alert("Service Booked");                //send alert user signed up
+                }   else {                                //if success = false and exists = true
+                        alert("An error occurred");         //alert unknow error
+                    }
+            }
+        })
+    });
+
+    createBooking = function (vehicle_id){
+        
+        $("#vehID").val(parseInt(vehicle_id));
+    }
+
+
+        $('#datetimepicker3').datepicker({
+          startDate: '-1d',
+          beforeShowDay: $.datepicker.noWeekends
+        });
+
+
 });
