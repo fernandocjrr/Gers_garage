@@ -236,7 +236,7 @@ if ($response['success']) {
 
               <div class="form-group">
                 <label for="type">Booking Type</label>
-                <select class="form-control" id="selectType" name="selectType">
+                <select class="form-control" id="selectBookingType" name="selectType">
                   <option>Chose a type</option>
                   <option value="anual service">Annual Service (min €200)</option>
                   <option value="major service">Major Service (min €500)</option>
@@ -255,7 +255,7 @@ if ($response['success']) {
                   <div class='col-sm-6'>
                     <div class="form-group">
                       <div class='input-group date' id='datetimepicker3'>
-                        <input type='text' name="date" class="form-control" placeholder="Date" />
+                        <input type='text' name="date" class="form-control" placeholder="Date" id="dateInput" disabled/>
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <span class="fa fa-calendar"></span>
@@ -304,8 +304,10 @@ if ($response['success']) {
 
 
   <script src="../static/js/jquery-3.5.1.min.js"></script>
-  <script src="../static/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/moment.js"></script>
+  <script src="../static/js/bootstrap.bundle.js"></script>
   <script src="../static/js/bootstrap.js"></script>
+  <script src="../static/js/bootstrap.min.js"></script>
   <script src="../static/js/account_controller.js"></script>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>

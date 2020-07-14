@@ -1,6 +1,8 @@
 $(document).ready(() => {
 
     var vehicles;
+    var bookings;
+    var DisabledDates = [];
 
     $.ajax({
         url: "../controllers/account.php",
@@ -80,59 +82,136 @@ $(document).ready(() => {
     $("#addvehicle-form").on("submit", (event) => {                             //if event submit from signup-form
         event.preventDefault();
 
-        var serializedData = $("#addvehicle-form").serializeArray();             //serialize form info into array
-
-        console.log(serializedData);
+        var serializedData = $("#addvehicle-form").serializeArray();
 
         $.ajax({
             url: "../controllers/account.php",
             type: "POST",
-            dataType: "json", 
+            dataType: "json",
             data: serializedData,
             success: function (data) {
 
                 if (data["success"]) {                      //if success in data array = true
                     $('#addvehicle-modal').modal('hide');       //close modal
                     alert("Vehicle added");                //send alert user signed up
-                }  else {                                //if success = false and exists = true
-                        alert("An error occurred");         //alert unknow error
-                    }
+                } else {                                //if success = false and exists = true
+                    alert("An error occurred");         //alert unknow error
                 }
-            
+            }
+
         })
     });
 
-    $("#booking-form").on("submit", (event) => {                             //if event submit from signup-form
+    $("#booking-form").on("submit", (event) => {
         event.preventDefault();
 
-        var serializedData = $("#booking-form").serializeArray();             //serialize form info into array
-        
+        var serializedData = $("#booking-form").serializeArray();
+
         $.ajax({
             url: "../controllers/booking.php",
             type: "POST",
-            dataType: "json", 
+            dataType: "json",
             data: serializedData,
             success: function (data) {
-                if (data["success"]) {                      //if success in data array = true
-                    $('#booking-modal').modal('hide');       //close modal
-                    alert("Service Booked");                //send alert user signed up
-                }   else {                                //if success = false and exists = true
-                        alert("An error occurred");         //alert unknow error
-                    }
+                if (data["success"]) {
+                    $('#booking-modal').modal('hide');
+                    alert("Service Booked");
+                    location.reload();
+                } else {
+                    alert("An error occurred");
+                }
             }
         })
     });
 
-    createBooking = function (vehicle_id){
-        
+    createBooking = function (vehicle_id) {
+
         $("#vehID").val(parseInt(vehicle_id));
     }
 
 
-        $('#datetimepicker3').datepicker({
-          startDate: '-1d',
-          beforeShowDay: $.datepicker.noWeekends
-        });
+    $('#selectBookingType').on('change', (e) => {
+        bookingType = $('#selectBookingType option:selected').val();
+        if (bookingType != "Chose a type") {
+            $('#dateInput').prop('disabled', false);
+            loadCalendar();
+        } else {
+            $('#dateInput').prop('disabled', true);
+        }
+    });
 
+
+    function loadCalendar() {
+        DisabledDates = [];
+        $.ajax({
+            url: "../controllers/booking.php",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                if (data["success"]) {
+                    bookings = data['data'];
+
+                    for (let i = 0; i < bookings.length; i++) {
+                        let weight;
+                        switch ($('#selectBookingType option:selected').val()) {
+                            case "anual service":
+                                weight = 1;
+                                break;
+
+                            case "major service":
+                                weight = 2;
+                                break;
+
+                            case "major repair":
+                                weight = 2;
+                                break;
+
+                            case "other service":
+                                weight = 1;
+                                break;
+                        }
+
+                        console.log(bookings[i]['date'], bookings[i]['total'], weight);
+                        
+                        if (parseInt(bookings[i]['total']) + weight > 4) {
+                            DisabledDates.push(bookings[i]['date']);
+                        }
+                    }
+
+                    $('#datetimepicker3').datepicker("destroy");
+
+                    console.log(DisabledDates);
+                    $('#datetimepicker3').datepicker({
+                        startDate: '+1d',
+                        daysOfWeekDisabled: [0],
+                        beforeShowDay: function (date) 
+                        {
+                            day = date.getDate();
+                            daystr = day.toString();
+                            month = date.getMonth() + 1;
+                            monthstr = month.toString();
+
+                            while (daystr.length < 2) {
+                                daystr = "0" + daystr;
+                            }
+                            while (monthstr.length < 2) {
+                                monthstr = "0" + monthstr;
+                            }
+
+                            dmy = date.getFullYear() + "-" + monthstr + "-" + daystr;
+                            if (DisabledDates.indexOf(dmy) != -1) {
+                                return false;
+                            }
+                            else {
+                                return true;
+                            }
+                        }
+                    });
+                } else {
+                    alert("An error occurred");
+                }
+            }
+        })
+    }
 
 });
