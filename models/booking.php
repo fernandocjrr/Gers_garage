@@ -65,4 +65,40 @@ class Booking
         }
     }
 
+    public function getBookingByDay ($date)
+    {
+        $this->connect("localhost", "root", "", "db_garage");
+
+        $stmt = $this->connection->prepare("SELECT * FROM booking  WHERE date = ?");
+
+        if ($stmt) {
+            $stmt->bind_param("s", $date);
+            $stmt->execute(); 
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $this->disconnect();
+            return array("success" => TRUE, "data" => $result);
+        } else {
+            $this->disconnect();
+            return array("success" => FALSE);
+        }
+    }
+
+    public function getBookingByInterval ($startDate, $endDate)
+    {
+        $this->connect("localhost", "root", "", "db_garage");
+
+        $stmt = $this->connection->prepare("SELECT * FROM booking  WHERE date >= ? AND date <= ?");
+
+        if ($stmt) {
+            $stmt->bind_param("ss", $startDate, $endDate);
+            $stmt->execute(); 
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $this->disconnect();
+            return array("success" => TRUE, "data" => $result);
+        } else {
+            $this->disconnect();
+            return array("success" => FALSE);
+        }
+    }
+
 }

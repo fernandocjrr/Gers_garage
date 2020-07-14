@@ -135,4 +135,13 @@ class User
             return array("success" => FALSE);                                                           //return array ['success' = false
         }
     }
+
+    public function logout($userID)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        unset($_SESSION["user_".strval($userID)]);
+        setcookie ("userID", $userID, time()-3600, "/");
+    }
 }

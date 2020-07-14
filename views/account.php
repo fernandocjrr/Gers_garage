@@ -14,7 +14,6 @@ $userID = $userModel->getUserCookie();
 $response = $userModel->isAdmin($userID);
 $dbVehicles = $vehicleDetailsModel->getVehicleDetails();
 
-
 if (isset($userID)) {
   if (!$userModel->checkUserSession($userID)) {
     echo "<script> alert ('Please Login First');
@@ -23,6 +22,13 @@ if (isset($userID)) {
 } else {
   echo "<script> alert ('Please Login First');
   window.location = '../index.php'</script>";
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+  if (isset($_POST['logout'])){
+    $userModel->logout($userID);
+    header("Location: ../index.php");
+  };
 }
 
 if ($response["success"]) {
@@ -53,7 +59,6 @@ if ($response['success']) {
   <meta name="viewport" content="width=Bootstreep, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Boostrap</title>
-  <link rel="stylesheet" href="../static/css/bootstrap.css">
   <link rel="stylesheet" href="../static/css/bootstrap.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 </head>
@@ -89,8 +94,9 @@ if ($response['success']) {
           </div>
         </li>
       </ul>
-      <a class="btn btn-outline-success my-2 my-sm-0" href="account.php"><i class="fa fa-user-circle-o "> Account</i></a>
-
+      <a class="btn btn-success my-2 my-sm-0" href="#"><i class="fa fa-user-circle-o "> Account</i></a>
+      <form method="POST" action="">
+        <input type="hidden" value="1" name="logout"><button class="btn btn-outline-info ml-1 my-2 my-sm-0" type="submit"> Logout </button></form>      
     </div>
   </nav>
 
@@ -264,9 +270,11 @@ if ($response['success']) {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
+
+              
+
             </div>
 
             <div class="modal-footer">
