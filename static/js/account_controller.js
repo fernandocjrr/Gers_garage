@@ -171,8 +171,6 @@ $(document).ready(() => {
                                 break;
                         }
 
-                        console.log(bookings[i]['date'], bookings[i]['total'], weight);
-                        
                         if (parseInt(bookings[i]['total']) + weight > 4) {
                             DisabledDates.push(bookings[i]['date']);
                         }
@@ -180,7 +178,6 @@ $(document).ready(() => {
 
                     $('#datetimepicker3').datepicker("destroy");
 
-                    console.log(DisabledDates);
                     $('#datetimepicker3').datepicker({
                         startDate: '+1d',
                         daysOfWeekDisabled: [0],
