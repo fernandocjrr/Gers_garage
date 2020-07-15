@@ -39,7 +39,7 @@ if ($response['success']) {
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=Bootstreep, initial-scale=1.0">
+  <meta name="viewport" content="width=Bootstrap, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Boostrap</title>
   <link rel="stylesheet" href="../static/css/bootstrap.css">
@@ -111,7 +111,7 @@ if ($response['success']) {
         <!-----------------------------------------------BOOKING VIEW MODAL---------------------------------------------->
 
         <div class="modal fade" role="dialog" id="viewbookings-modal">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <h3 class="modal-title">Booking Viewer</h3>
@@ -147,15 +147,11 @@ if ($response['success']) {
                           </div>
                         </div>
                       </div>
-                      <div id="bookingbyday">
-                      
-                        <div class="card">
-                          <div class="card-body">
-                            This is some text within a card body.
-                          </div>
 
-                        </div>
+                      <div id="bookingByDay">
+                        
                       </div>
+
                     </div>
                     <div class="tab-pane fade" id="byweek" role="tabpanel">
 
@@ -177,6 +173,7 @@ if ($response['success']) {
                       </div>
                       <div id="bookingbyweek">
                       
+                  
                         <div class="card">
                           <div class="card-body">
                             This is some text within a card body.
