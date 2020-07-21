@@ -71,7 +71,7 @@ class Booking
 
         $stmt = $this->connection->prepare("SELECT * FROM booking   INNER JOIN have ON booking.booking_id = have.booking_id
                                                                     INNER JOIN vehicle ON vehicle.vehicle_id = have.vehicle_id
-                                                                    INNER JOIN vehicle_details ON vehicle.vehicle_details_id = vehicle_details.vehicle_details_id
+                                                                    INNER JOIN vehicle_details ON vehicle.vehicle_details_id = vehicle_details. vehicle_details_id
                                                                     INNER JOIN own ON own.vehicle_id = vehicle.vehicle_id
                                                                     INNER JOIN user ON own.user_id = user.user_id
                                                                     WHERE date = ?");
@@ -92,7 +92,12 @@ class Booking
     {
         $this->connect("localhost", "root", "", "db_garage");
 
-        $stmt = $this->connection->prepare("SELECT * FROM booking  WHERE date >= ? AND date <= ?");
+        $stmt = $this->connection->prepare("SELECT * FROM booking   INNER JOIN have ON booking.booking_id = have.booking_id
+                                                                    INNER JOIN vehicle ON vehicle.vehicle_id = have.vehicle_id
+                                                                    INNER JOIN vehicle_details ON vehicle.vehicle_details_id = vehicle_details. vehicle_details_id
+                                                                    INNER JOIN own ON own.vehicle_id = vehicle.vehicle_id
+                                                                    INNER JOIN user ON own.user_id = user.user_id
+                                                                    WHERE date >= ? AND date <= ?");
 
         if ($stmt) {
             $stmt->bind_param("ss", $startDate, $endDate);
@@ -100,6 +105,23 @@ class Booking
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $this->disconnect();
             return array("success" => TRUE, "data" => $result);
+        } else {
+            $this->disconnect();
+            return array("success" => FALSE);
+        }
+    }
+
+    public function editStatus ($bookingId, $status)
+    {
+        $this->connect("localhost", "root", "", "db_garage");
+
+        $stmt = $this->connection->prepare("UPDATE booking SET status = ? WHERE booking_id = ?");
+
+        if ($stmt) {
+            $stmt->bind_param("si", $status, $bookingId);
+            $stmt->execute();
+            $this->disconnect();
+            return array("success" => TRUE);
         } else {
             $this->disconnect();
             return array("success" => FALSE);

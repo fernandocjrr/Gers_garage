@@ -147,15 +147,11 @@ if ($response['success']) {
                           </div>
                         </div>
                       </div>
-
-                      <div id="bookingByDay">
-                        
-                      </div>
-
+                      <div id="bookingByDay"></div>
                     </div>
-                    <div class="tab-pane fade" id="byweek" role="tabpanel">
 
-                    <div class="form-group mt-2">
+                    <div class="tab-pane fade" id="byweek" role="tabpanel">
+                      <div class="form-group mt-2">
                         <div class="row">
                           <div class='col-sm-6'>
                             <div class="form-group">
@@ -171,36 +167,129 @@ if ($response['success']) {
                           </div>
                         </div>
                       </div>
-                      <div id="bookingbyweek">
-                      
-                  
-                        <div class="card">
-                          <div class="card-body">
-                            This is some text within a card body.
-                          </div>
 
-                        </div>
+                      <div id="bookingByWeek">
+
+
+
                       </div>
-
                     </div>
+
                   </div>
                 </div>
-
-              </form>
             </div>
+
+            </form>
           </div>
         </div>
+      </div>
 
-        <div class="container">
-          <!-- Example row of columns -->
-          <div class="row">
+      <!-----------------------------------------------BOOKING EDITOR MODAL---------------------------------------------->
 
+      <div class="modal fade" role="dialog" id="editbooking-modal">
+        <div class="modal-dialog  modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Edit Booking</h3>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form id="editbooking-form">
+              <input type="hidden" id="bookID" name="bookID" />
+              <input type="hidden" id="qnt" name="qtn" value="1" />
+              <div class="modal-body">
+
+                <div class="form-group">
+                  <input type='text' class="form-control" placeholder="Add cost Value" name="costInput" id="costInput" />
+                </div>
+
+                <div class="form-group">
+                  <div class="row" id = "partInput">
+                    <div class="col-md-6"><select class="form-control" name="part_0" value="" id="selectPart_0">
+                        <option>Add Part</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <input type='number' class="form-control" placeholder="Quantity" name="quantity_0" id="partQuantity_0" />
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+                  <select class="form-control" name="selectStatus" id="selectStatus">
+                    <option>Status</option>
+                    <option value="booked">Booked</option>
+                    <option value="inService">In Service</option>
+                    <option value="fixes">Fixed</option>
+                    <option value="collected">Collected</option>
+                    <option value="unrepairrable">Unrepairrable</option>
+                  </select>
+                </div>
+
+
+                <div class="form-group">
+                  <select class="form-control" name="selectStaff" value="" id="selectStaff">
+                    <option>Asign Staff</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="petrol">Petrol</option>
+                    <option value="hybrid">Hybrid</option>
+                    <option value="electric">Electric</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <textarea type="text" name="details" id="details" class="form-control" placeholder="Comments"></textarea>
+
+
+
+
+                </div>
+
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" id="moreParts">More Parts</button><button type="button" class="btn btn-success">Invoice</button> <button type="submit" class="btn btn-success">SEND</button>
+                </div>
+            </form>
           </div>
         </div>
+      </div>
 
-        <hr>
+      <!-----------------------------------------------ROSTER MODAL---------------------------------------------->
 
-      </div> <!-- /container -->
+      <div class="modal fade" role="dialog" id="roster-modal">
+        <div class="modal-dialog  modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Roster</h3>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form id="roster-form">
+              <div class="modal-body">
+
+              </div>
+
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">SEND</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+
+        </div>
+      </div>
+
+      <hr>
+
+    </div> <!-- /container -->
 
   </main>
 

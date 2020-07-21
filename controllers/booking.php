@@ -2,9 +2,14 @@
 
 require_once __DIR__ . "/../models/booking.php";
 require_once __DIR__ . "/../models/have.php";
+require_once __DIR__ . "/../models/cost.php";
+require_once __DIR__ . "/../models/assign.php";
 
 $bookingModel = new Booking();											//new instance of class user from user.php
 $haveModel = new Have();
+$costModel = new Cost();
+$assignModel = new Assign();
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
@@ -47,6 +52,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$response = array("success" => FALSE);
 			echo json_encode($response);
 		}
+
+	} elseif (isset($_POST['editBooking'])) {
+
+	
+		$cost = filter_input(INPUT_POST, "costInput", FILTER_SANITIZE_STRING);
+		$description = filter_input(INPUT_POST, "details", FILTER_SANITIZE_STRING);
+		$staff_id = filter_input(INPUT_POST, "selectStaff", FILTER_SANITIZE_STRING);
+		$booking_id = filter_input(INPUT_POST, "bookID", FILTER_SANITIZE_STRING);
+		$status = filter_input(INPUT_POST, "selectStatus", FILTER_SANITIZE_STRING);
+		$number_parts = filter_input(INPUT_POST, "qtn", FILTER_SANITIZE_NUMBER_INT);
+
+		$response = $costModel->addCost($cost,$description,NULL,NULL,$booking_id);
+
+		for ($i = 0 ; $i < $number_parts ; $i++){
+			$quantity = filter_input(INPUT_POST, "quantity_".$i, FILTER_SANITIZE_NUMBER_INT);
+			$part_id = filter_input(INPUT_POST, "part_".$i, FILTER_SANITIZE_NUMBER_INT);
+			
+			$costModel->addCost(NULL,NULL,$part_id,$quantity,$booking_id);
+		}
+		
+		
+		$response = $assignModel->assignStaff($staff_id,$booking_id);
+			if ($response["success"]) {
+				$response = $bookingModel->editStatus($booking_id,$status);
+				echo json_encode($response);				
+			} else {
+				echo json_encode($response);
+			}
+		
+
+
+
 
 	} else {
 

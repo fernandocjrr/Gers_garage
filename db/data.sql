@@ -68,6 +68,33 @@ CREATE TABLE db_garage.cost
     cost                        DOUBLE,
     description                 VARCHAR(100),
     booking_id                  INTEGER NOT NULL,
+    part_id                     INTEGER,
     PRIMARY KEY (cost_id),
-    FOREIGN KEY (booking_id)        REFERENCES booking (booking_id)
+    FOREIGN KEY (booking_id)   REFERENCES booking (booking_id),
+    FOREIGN KEY (part_id)       REFERENCES parts (part_id)
+)
+
+CREATE TABLE db_garage.parts
+(   
+    part_id                     INTEGER NOT NULL AUTO_INCREMENT,
+    part                        VARCHAR(100),
+    part_cost                   DOUBLE,
+    PRIMARY KEY (part_id)
+)
+
+CREATE TABLE db_garage.asign
+(   
+    asign_id                    INTEGER NOT NULL AUTO_INCREMENT,
+    staff_id                    INTEGER NOT NULL,
+    booking_id                  INTEGER NOT NULL,
+    PRIMARY KEY (asign_id),
+    FOREIGN KEY (staff_id)      REFERENCES   staff (staff_id),
+    FOREIGN KEY (booking_id)    REFERENCES   booking (booking_id)
+)
+
+CREATE TABLE db_garage.staff
+(   
+    staff_id                     INTEGER NOT NULL AUTO_INCREMENT,
+    staff_fname                  VARCHAR(100),
+    PRIMARY KEY (staff_id)
 )
