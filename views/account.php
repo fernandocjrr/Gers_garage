@@ -24,8 +24,8 @@ if (isset($userID)) {
   window.location = '../index.php'</script>";
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-  if (isset($_POST['logout'])){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (isset($_POST['logout'])) {
     $userModel->logout($userID);
     header("Location: ../index.php");
   };
@@ -96,7 +96,7 @@ if ($response['success']) {
       </ul>
       <a class="btn btn-success my-2 my-sm-0" href="#"><i class="fa fa-user-circle-o "> Account</i></a>
       <form method="POST" action="">
-        <input type="hidden" value="1" name="logout"><button class="btn btn-outline-info ml-1 my-2 my-sm-0" type="submit"> Logout </button></form>      
+        <input type="hidden" value="1" name="logout"><button class="btn btn-outline-info ml-1 my-2 my-sm-0" type="submit"> Logout </button></form>
     </div>
   </nav>
 
@@ -139,6 +139,7 @@ if ($response['success']) {
                   <p class="card-text"> <strong>Licence: </strong> <?php echo $vehicleByUser[$i]["licence_details"]; ?></p>
                   <div class="float-right">
                     <button onClick="createBooking(<?php echo $vehicleByUser[$i]["vehicle_id"] ?>)" class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#booking-modal">Create Booking</button>
+                    <button onClick="viewHistory(<?php echo $vehicleByUser[$i]["vehicle_id"] ?>)" class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#history-modal">History</button>
                   </div>
                 </div>
               </div>
@@ -237,7 +238,7 @@ if ($response['success']) {
           </div>
 
           <form id="booking-form">
-            <input type="hidden" id="vehID" name="vehID"/>
+            <input type="hidden" id="vehID" name="vehID" />
             <div class="modal-body">
 
               <div class="form-group">
@@ -261,7 +262,7 @@ if ($response['success']) {
                   <div class='col-sm-6'>
                     <div class="form-group">
                       <div class='input-group date' id='datetimepicker3'>
-                        <input type='text' name="date" class="form-control" placeholder="Date" id="dateInput" disabled/>
+                        <input type='text' name="date" class="form-control" placeholder="Date" id="dateInput" disabled />
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <span class="fa fa-calendar"></span>
@@ -273,7 +274,7 @@ if ($response['success']) {
                 </div>
               </div>
 
-              
+
 
             </div>
 
@@ -282,6 +283,28 @@ if ($response['success']) {
             </div>
           </form>
         </div>
+      </div>
+    </div>
+
+    <!-----------------------------------------------HISTORY MODAL---------------------------------------------->
+
+    <div class="modal fade" role="dialog" id="history-modal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Vehicle History</h3>
+            <button type="" button" class=close" data-dismiss="modal">&times;</button>
+          </div>
+
+            <div class="modal-body">
+              <div id="history">
+
+              </div>
+
+
+            </div>
+
+       </div>
       </div>
     </div>
 

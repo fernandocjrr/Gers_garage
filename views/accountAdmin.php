@@ -248,32 +248,10 @@ if ($response['success']) {
 
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-success" id="moreParts">More Parts</button><button type="button" class="btn btn-success">Invoice</button> <button type="submit" class="btn btn-success">SEND</button>
+                  <button type="button" class="btn btn-success" id="moreParts">More Parts</button>
+                  <a type="button" class="btn btn-success" id="invoice" target="_blank">Invoice</a>
+                  <button type="submit" class="btn btn-success">SEND</button>
                 </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-----------------------------------------------ROSTER MODAL---------------------------------------------->
-
-      <div class="modal fade" role="dialog" id="roster-modal">
-        <div class="modal-dialog  modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title">Roster</h3>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <form id="roster-form">
-              <div class="modal-body">
-
-              </div>
-
-
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success">SEND</button>
-              </div>
             </form>
           </div>
         </div>

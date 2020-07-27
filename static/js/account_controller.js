@@ -24,7 +24,7 @@ $(document).ready(() => {
 
 
     $('#selectType').on('change', (e) => {
-        let select = $('#selectParts');
+        let select = $('#selectManufacturer');
         let added = [];
         select.children('option:not(:first)').remove();
 
@@ -129,6 +129,52 @@ $(document).ready(() => {
     createBooking = function (vehicle_id) {
 
         $("#vehID").val(parseInt(vehicle_id));
+    }
+
+    viewHistory = function (vehicle_id) {
+        
+        $.ajax({
+            url: "../controllers/booking.php",
+            type: "POST",
+            dataType: "json",
+            data: {vehicle_id:vehicle_id, history: true},
+            success: function (data) {
+                if (data["success"]) {
+                    $('#history').empty();
+                    table = `<table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col"> Booking ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Fix Type</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+        
+        for (i = 0; i < data['data'].length; i++) {
+            date = data['data'][i]['date'].split("-");
+                        table += `<tr>
+                        <td class="text-capitalize">`+ data['data'][i]['booking_id'] + `</td>
+                          <td> `+ date[2] + "/" + date[1] + "/" + date[0] + `</td>
+                          <td class="text-capitalize">`+ data['data'][i]['fix_type'] + `</td>
+                          <td class="text-capitalize">`+ data['data'][i]['details'] + `</td>
+                          <td class="text-capitalize">`+ data['data'][i]['cost'] + `</td>
+                          <td class="text-capitalize">`+ data['data'][i]['status'] + `</td>
+                        </tr>`
+        }
+
+        table += `</tbody>
+                    </table>`
+                    $('#history').append(table);
+                } else {
+                    alert("An error occurred");
+                }
+            }
+        })
+        
     }
 
 

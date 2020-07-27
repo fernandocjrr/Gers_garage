@@ -36,5 +36,24 @@ class Cost
         }
     } 
 
+    public function getCosts ($booking_id)
+    {
+        $this->connect("localhost", "root", "", "db_garage");
+
+        $stmt = $this->connection->prepare("SELECT * FROM cost   LEFT JOIN parts ON cost.part_id = parts.part_id
+                                                                    WHERE cost.booking_id = ?");
+
+        if ($stmt) {
+            $stmt->bind_param("i", $booking_id);
+            $stmt->execute(); 
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $this->disconnect();
+            return array("success" => TRUE, "data" => $result);
+        } else {
+            $this->disconnect();
+            return array("success" => FALSE);
+        }
+    }
+
 }
 ?>

@@ -74,6 +74,7 @@ class Booking
                                                                     INNER JOIN vehicle_details ON vehicle.vehicle_details_id = vehicle_details. vehicle_details_id
                                                                     INNER JOIN own ON own.vehicle_id = vehicle.vehicle_id
                                                                     INNER JOIN user ON own.user_id = user.user_id
+                                                                    
                                                                     WHERE date = ?");
 
         if ($stmt) {
@@ -127,6 +128,50 @@ class Booking
             return array("success" => FALSE);
         }
     }
+
+
+    public function getBookingById ($bookingId)
+    {
+        $this->connect("localhost", "root", "", "db_garage");
+
+        $stmt = $this->connection->prepare("SELECT * FROM booking   INNER JOIN have ON booking.booking_id = have.booking_id
+                                                                    INNER JOIN vehicle ON vehicle.vehicle_id = have.vehicle_id
+                                                                    INNER JOIN vehicle_details ON vehicle.vehicle_details_id = vehicle_details. vehicle_details_id
+                                                                    INNER JOIN own ON own.vehicle_id = vehicle.vehicle_id
+                                                                    INNER JOIN user ON own.user_id = user.user_id
+                                                                    WHERE booking.booking_id = ?");
+
+        if ($stmt) {
+            $stmt->bind_param("i", $bookingId);
+            $stmt->execute(); 
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $this->disconnect();
+            return array("success" => TRUE, "data" => $result);
+        } else {
+            $this->disconnect();
+            return array("success" => FALSE);
+        }
+    }
+
+    public function getHistory ($vehicleId)
+    {
+    $this->connect("localhost", "root", "", "db_garage");
+
+    $stmt = $this->connection->prepare("SELECT * FROM vehicle   INNER JOIN have ON vehicle.vehicle_id = have.vehicle_id
+                                                                INNER JOIN booking ON booking.booking_id = have.booking_id
+                                                                WHERE vehicle.vehicle_id = ?");
+
+    if ($stmt) {
+        $stmt->bind_param("i", $vehicleId);
+        $stmt->execute(); 
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $this->disconnect();
+        return array("success" => TRUE, "data" => $result);
+    } else {
+        $this->disconnect();
+        return array("success" => FALSE);
+    }
+}
 
 
 

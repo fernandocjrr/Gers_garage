@@ -1,0 +1,19 @@
+table, th, td{
+    border: 1px solid  black;
+    text-align: center;
+}
+
+table{
+    width: 70%;
+    margin-left: 15%;
+}
+
+td {
+    width: 35%;
+}
+
+
+button {
+margin-left: calc(50% - 28px);
+margin-top: 10px;
+}

@@ -85,6 +85,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+	} elseif (isset($_POST['history'])) {
+
+		$vehicle_id = intval($_POST['vehicle_id']);
+		$response = $bookingModel->getHistory($vehicle_id);
+		if ($response["success"]) {
+			if (!empty($response["data"])){
+				echo json_encode($response);
+			} else {
+				$response = array("success" => FALSE);
+				echo json_encode($response);
+			} 
+			
+		}else {
+			$response = array("success" => FALSE);
+			echo json_encode($response);
+		}
+		
+
 	} else {
 
 	$fix_type = filter_input(INPUT_POST, "selectType", FILTER_SANITIZE_STRING);

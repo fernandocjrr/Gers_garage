@@ -83,7 +83,7 @@ $(document).ready(() => {
                                     </tr>
                                 </thead>
                                 <tbody>`;
-
+                    
                     for (i = 0; i < data['data'].length; i++) {
                         date = data['data'][i]['date'].split("-");
                         table += `<tr>
@@ -128,29 +128,30 @@ $(document).ready(() => {
                     table = `<table class="table table-sm">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Model</th>
-                                        <th scope="col">Fix Type</th>
-                                        <th scope="col" colspan="3">Details</th>
-                                        <th scope="col">Staff</th>
-                                    </tr>
+                                        <th scope="col" class="text-center">Date</th>
+                                        <th scope="col" class="text-center">Name</th>
+                                        <th scope="col" class="text-center">Model</th>
+                                        <th scope="col" class="text-center">Fix Type</th>
+                                        <th scope="col" class="text-center" colspan="3">Details</th>
+                                        <th scope="col" class="text-center">Staff</th>
+                                    </tr>   
                                 </thead>
                                 <tbody>`;
                     for (i = 0; i < data['data'].length; i++) {
                         date = data['data'][i]['date'].split("-");
                         table += `<tr>
                                       <td> `+ date[2] + "/" + date[1] + "/" + date[0] + `</td>
-                                      <td class="text-capitalize">`+ data['data'][i]['first_name'] + `</td>
-                                      <td class="text-capitalize">`+ data['data'][i]['model'] + `</td>
-                                      <td class="text-capitalize">`+ data['data'][i]['fix_type'] + `</td>
-                                      <td class="text-capitalize" colspan="3">`+ data['data'][i]['details'] + `</td>
-                                      <td class="text-capitalize">`+ data['data'][i]['staff'] + `</td>
+                                      <td class="text-capitalize text-center">`+ data['data'][i]['first_name'] + `</td>
+                                      <td class="text-capitalize text-center">`+ data['data'][i]['model'] + `</td>
+                                      <td class="text-capitalize text-center">`+ data['data'][i]['fix_type'] + `</td>
+                                      <td class="text-capitalize text-center" colspan="3">`+ data['data'][i]['details'] + `</td>
+                                      <td class="text-capitalize text-center">`+ data['data'][i]['staff'] + `</td>
                                       </tr>`
                     }
                     table += `<tr>
-                                <td colspan="6"></td>
-                                <td><button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#roster-modal">Generate Roster</button></td>
+                                <td colspan="7"></td>
+                                <td class="text-center "><button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#roster-modal">Generate Roster</button></td>
+                                
                                 </tr>
                                 </tbody>
                     </table>`
@@ -271,6 +272,7 @@ $(document).ready(() => {
     editBooking = function (booking_id) {
         $("#bookID").val(parseInt(booking_id));
         $('#viewbookings-modal').modal('hide');
+        $("#invoice").attr("href","invoice.php?bookingId="+booking_id);
     }
 
 
