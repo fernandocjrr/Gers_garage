@@ -69,12 +69,16 @@ class Booking
     {
         $this->connect("localhost", "root", "", "db_garage");
 
-        $stmt = $this->connection->prepare("SELECT * FROM booking   INNER JOIN have ON booking.booking_id = have.booking_id
+        $stmt = $this->connection->prepare("SELECT booking.* , vehicle.*, vehicle_details.*, user.*, assign.staff_id , staff.*
+                                                                    FROM booking   
+                                                                    INNER JOIN have ON booking.booking_id = have.booking_id
                                                                     INNER JOIN vehicle ON vehicle.vehicle_id = have.vehicle_id
                                                                     INNER JOIN vehicle_details ON vehicle.vehicle_details_id = vehicle_details. vehicle_details_id
                                                                     INNER JOIN own ON own.vehicle_id = vehicle.vehicle_id
                                                                     INNER JOIN user ON own.user_id = user.user_id
-                                                                    
+                                                                    LEFT JOIN assign ON booking.booking_id = assign.booking_id
+                                                                    LEFT JOIN staff ON staff.staff_id = assign.staff_id 
+                                                                     
                                                                     WHERE date = ?");
 
         if ($stmt) {
@@ -93,11 +97,16 @@ class Booking
     {
         $this->connect("localhost", "root", "", "db_garage");
 
-        $stmt = $this->connection->prepare("SELECT * FROM booking   INNER JOIN have ON booking.booking_id = have.booking_id
+        $stmt = $this->connection->prepare("SELECT booking.* , vehicle.*, vehicle_details.*, user.*, assign.staff_id , staff.*
+                                                                    FROM booking   
+                                                                    INNER JOIN have ON booking.booking_id = have.booking_id
                                                                     INNER JOIN vehicle ON vehicle.vehicle_id = have.vehicle_id
                                                                     INNER JOIN vehicle_details ON vehicle.vehicle_details_id = vehicle_details. vehicle_details_id
                                                                     INNER JOIN own ON own.vehicle_id = vehicle.vehicle_id
                                                                     INNER JOIN user ON own.user_id = user.user_id
+                                                                    LEFT JOIN assign ON booking.booking_id = assign.booking_id
+                                                                    LEFT JOIN staff ON staff.staff_id = assign.staff_id
+                                                                     
                                                                     WHERE date >= ? AND date <= ?");
 
         if ($stmt) {

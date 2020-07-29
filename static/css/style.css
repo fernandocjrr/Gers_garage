@@ -1,0 +1,23 @@
+.body {
+    height: 100% !important;
+    margin:0 !important;
+}
+
+.main-custom {
+    height: 100%;
+    padding-bottom: 25px;
+}
+
+.main-jumbotron{
+    position: relative;
+    margin-top: 96px;
+    border-radius: 0;
+}
+
+.footer{
+    position: relative;
+    bottom: 0;
+    left:0;
+    margin-left: calc(50% - 100px);
+    margin-top: -25px;
+}

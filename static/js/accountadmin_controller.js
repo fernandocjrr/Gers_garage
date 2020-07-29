@@ -68,6 +68,7 @@ $(document).ready(() => {
             success: function (data) {
                 if (data["success"]) {
                     $('#bookingByDay').empty();
+
                     table = `<table class="table table-sm">
                                 <thead>
                                     <tr>
@@ -83,7 +84,7 @@ $(document).ready(() => {
                                     </tr>
                                 </thead>
                                 <tbody>`;
-                    
+
                     for (i = 0; i < data['data'].length; i++) {
                         date = data['data'][i]['date'].split("-");
                         table += `<tr>
@@ -93,7 +94,7 @@ $(document).ready(() => {
                           <td class="text-capitalize">`+ data['data'][i]['fix_type'] + `</td>
                           <td class="text-capitalize" colspan="2">`+ data['data'][i]['details'] + `</td>
                           <td class="text-capitalize">`+ data['data'][i]['cost'] + `</td>
-                          <td class="text-capitalize">`+ data['data'][i]['staff'] + `</td>                          
+                          <td class="text-capitalize">`+ (data['data'][i]['staff_fname'] ? data['data'][i]['staff_fname'] : "Unassigned") + `</td>                          
                           <td class="text-capitalize">`+ data['data'][i]['status'] + `</td>
                           <td><button onClick="editBooking(`+ data['data'][i]['booking_id'] + `)" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#editbooking-modal">EDIT</button></td>
                         </tr>`
@@ -145,18 +146,19 @@ $(document).ready(() => {
                                       <td class="text-capitalize text-center">`+ data['data'][i]['model'] + `</td>
                                       <td class="text-capitalize text-center">`+ data['data'][i]['fix_type'] + `</td>
                                       <td class="text-capitalize text-center" colspan="3">`+ data['data'][i]['details'] + `</td>
-                                      <td class="text-capitalize text-center">`+ data['data'][i]['staff'] + `</td>
+                                      <td class="text-capitalize text-center">`+ (data['data'][i]['staff_fname'] ? data['data'][i]['staff_fname'] : "Unassigned") + `</td>
                                       </tr>`
                     }
+                    
                     table += `<tr>
                                 <td colspan="7"></td>
-                                <td class="text-center "><button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#roster-modal">Generate Roster</button></td>
+                                <td class="text-center "><a class="btn btn-outline-info" type="button" href="roster.php?startDate=`+startDate.toISOString().slice(0,10)+`&endDate=`+endDate.toISOString().slice(0,10)+`" target="_blank">Generate Roster</a></td>
                                 
                                 </tr>
                                 </tbody>
                     </table>`
                     $('#bookingByWeek').append(table);
-
+                    
                 } else {
                     alert("An error occurred");
                 }
@@ -184,11 +186,20 @@ $(document).ready(() => {
                     $('#editbooking-modal').modal('hide');
                     $('#viewbookings-modal').modal('show');
                     alert("Booking Edited");
+                    $('#dateInput').val("");
+                    $('#bookingByDay').empty();
                 } else {
                     alert("An error occurred");
                 }
             }
         })
+    });
+
+    $("#viewbooking").on("click", (event) => {
+
+        $('#dateInput').val("");
+        $('#bookingByDay').empty();
+
     });
 
 
@@ -250,7 +261,7 @@ $(document).ready(() => {
                 } else {
                     alert("An error occurred");
                 }
-            } 
+            }
 
         });
     }
@@ -272,8 +283,10 @@ $(document).ready(() => {
     editBooking = function (booking_id) {
         $("#bookID").val(parseInt(booking_id));
         $('#viewbookings-modal').modal('hide');
-        $("#invoice").attr("href","invoice.php?bookingId="+booking_id);
+        $("#invoice").attr("href", "invoice.php?bookingId=" + booking_id);
     }
+
+
 
 
 });

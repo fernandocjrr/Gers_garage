@@ -37,5 +37,22 @@ class Assign
         }
     } 
 
+    public function deleteStaff($booking_id){
+
+        $this->connect("localhost", "root", "", "db_garage");
+
+        $stmt = $this->connection->prepare("DELETE FROM assign WHERE booking_id = ?");                 //????
+
+        if ($stmt) {
+            $stmt->bind_param("i", $booking_id);
+            $stmt->execute(); 
+            $this->disconnect();
+            return array("success" => TRUE);
+        } else {
+            $this->disconnect();
+            return array("success" => FALSE);
+        }
+    } 
+
 }
 ?>

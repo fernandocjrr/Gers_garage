@@ -15,17 +15,24 @@ if (isset($userID)) {
   window.location = '../index.php'</script>";
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (isset($_POST['logout'])) {
+    $userModel->logout($userID);
+    header("Location: ../index.php");
+  };
+}
+
+
 ?>
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=Bootstree, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Boostrap</title>
+  <title>Home</title>
   <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 </head>
 
 <body>
@@ -58,18 +65,19 @@ if (isset($userID)) {
 
       </ul>
 
-      <a href="account.php" class="btn btn-outline-success my-2 my-sm-0"> <span class="glyphicon glyphicon-user"></span>User Account</a>
-      <span class="glyphicon glyphicon-user"></span>
+      <a class="btn btn-outline-success my-2 my-sm-0" href="account.php"><i class="fa fa-user-circle-o "> Account</i></a>
+      <form method="POST" action="">
+        <input type="hidden" value="1" name="logout"><button class="btn btn-outline-info ml-1 my-2 my-sm-0" type="submit"> Logout </button></form>
 
     </div>
   </nav>
 
 
 
-  < <main role="main">
+  <main role="main" class="main-custom main-jumbotron">
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron mt-5 mb-0">
+    <div class="jumbotron mb-0" style="border-radius:0;">
       <div class="container">
         <h1 class="display-3">Hello, world!</h1>
         <p>This is a template for a simple marketing or informational website. It includes a large callout called a
@@ -84,14 +92,7 @@ if (isset($userID)) {
       <!-- Example row of columns -->
       <div class="row">
 
-      <div class="col-md">
-      </div>
         <div class="col-md">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui. </p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
         </div>
         <div class="col-md">
           <h2>Heading</h2>
@@ -102,10 +103,13 @@ if (isset($userID)) {
         </div>
         <div class="col-md">
           <h2>Heading</h2>
-          <button type="button" class="btn btn-default" aria-label="Left Align">
-            <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-          </button>
-
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            Donec sed odio dui. </p>
+          <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        </div>
+        <div class="col-md">
+          <h2>Heading</h2>
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
             porta
             felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
@@ -114,23 +118,22 @@ if (isset($userID)) {
           <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
         </div>
         <div class="col-md">
+        </div>
       </div>
-      </div>
+    </div>
 
-      <hr>
+  </main>
 
-    </div> <!-- /container -->
-
-    </main>
-
-    <footer class="container">
+  <footer class="footer">
+    <div>
       <p>© Company 2017-2020</p>
-    </footer>
+    </div>
 
-    <script src="../static/js/jquery-3.5.1.min.js"></script>
-    <script src="../static/js/bootstrap.bundle.min.js"></script>
-    <script src="../static/js/bootstrap.js"></script>
-    <script src="../static/js/index_controller.js"></script>
+  </footer>
+  <script src="../static/js/jquery-3.5.1.min.js"></script>
+  <script src="../static/js/bootstrap.js"></script>
+  <script src="../static/js/index_controller.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
 
 </body>

@@ -106,7 +106,7 @@ if ($response['success']) {
 
         <!-----------------------------------------------VEHICLE CARDS---------------------------------------------->
 
-        <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#viewbookings-modal">View Bookings</button>
+        <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#viewbookings-modal" id="viewbooking">View Bookings</button>
 
         <!-----------------------------------------------BOOKING VIEW MODAL---------------------------------------------->
 
@@ -204,7 +204,7 @@ if ($response['success']) {
                 </div>
 
                 <div class="form-group">
-                  <div class="row" id = "partInput">
+                  <div class="row" id="partInput">
                     <div class="col-md-6"><select class="form-control" name="part_0" value="" id="selectPart_0">
                         <option>Add Part</option>
                       </select>
@@ -221,7 +221,7 @@ if ($response['success']) {
                     <option>Status</option>
                     <option value="booked">Booked</option>
                     <option value="inService">In Service</option>
-                    <option value="fixes">Fixed</option>
+                    <option value="fixed">Fixed</option>
                     <option value="collected">Collected</option>
                     <option value="unrepairrable">Unrepairrable</option>
                   </select>

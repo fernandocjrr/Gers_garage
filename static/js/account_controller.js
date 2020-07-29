@@ -169,8 +169,9 @@ $(document).ready(() => {
         table += `</tbody>
                     </table>`
                     $('#history').append(table);
+                    $('#history-modal').modal('show');
                 } else {
-                    alert("An error occurred");
+                    alert("This vehicle have not been booked");
                 }
             }
         })

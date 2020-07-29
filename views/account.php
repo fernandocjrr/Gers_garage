@@ -52,57 +52,57 @@ if ($response['success']) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html class="body">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=Bootstreep, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Boostrap</title>
+  <title>User's Control Panel</title>
   <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+<body class="bg-light body">
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <a class="navbar-brand" href="../index.php"><img src="../img/logo.png" alt="Logo" width="100" height="70"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav m-auto">
+
+
 
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#">HOME<span class="sr-only">(current)</span></a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#">SERVICES</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="#">ABOUT US</a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="#">CONTACT</a>
         </li>
+
       </ul>
-      <a class="btn btn-success my-2 my-sm-0" href="#"><i class="fa fa-user-circle-o "> Account</i></a>
+
+      <a class="btn btn-outline-success my-2 my-sm-0" href="#"><i class="fa fa-user-circle-o "> Account</i></a>
       <form method="POST" action="">
         <input type="hidden" value="1" name="logout"><button class="btn btn-outline-info ml-1 my-2 my-sm-0" type="submit"> Logout </button></form>
+
+    </div>
+  </nav>
     </div>
   </nav>
 
   <!-----------------------------------------------SIDE BAR---------------------------------------------->
 
-  <main role="main" class="pt-5">
+  <main role="main" class="pt-5 main-custom">
 
     <div class="container-fluid pt-5">
       <div class="row pl-2">
@@ -123,12 +123,12 @@ if ($response['success']) {
 
         <!-----------------------------------------------VEHICLE CARDS---------------------------------------------->
 
-        <div class="col-md-9">
+        <div class="col-md-9 bg-light">
 
           <div class="row ml-2">
 
             <?php for ($i = 0; $i < count($vehicleByUser); $i++) { ?>
-              <div class="card mr-1" style="width: 15rem;">
+              <div class="card mr-1 " style="width: 15rem;">
                 <div class="card-body">
                   <h5 class="card-title text-capitalize"><?php echo $vehicleByUser[$i]["type"]; ?></h5>
                   <h6 class="card-subtitle mb-2 text-muted text-capitalize">
@@ -139,17 +139,19 @@ if ($response['success']) {
                   <p class="card-text"> <strong>Licence: </strong> <?php echo $vehicleByUser[$i]["licence_details"]; ?></p>
                   <div class="float-right">
                     <button onClick="createBooking(<?php echo $vehicleByUser[$i]["vehicle_id"] ?>)" class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#booking-modal">Create Booking</button>
-                    <button onClick="viewHistory(<?php echo $vehicleByUser[$i]["vehicle_id"] ?>)" class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button" data-toggle="modal" data-target="#history-modal">History</button>
+                    <button onClick="viewHistory(<?php echo $vehicleByUser[$i]["vehicle_id"] ?>)" class="btn btn-outline-info my-2 my-sm-0 ml-2" type="button">History</button>
                   </div>
                 </div>
               </div>
             <?php } ?>
 
-            <button class="card text-center btn-outline-success" data-toggle="modal" data-target="#addvehicle-modal"" style=" width: 15rem;">
+            <div>
+            <button class="card text-center btn-outline-success" data-toggle="modal" data-target="#addvehicle-modal"" style="width: 75px;height:75px ; position: relative; margin-top: 85px;">
               <div class="card-body">
-                <h3>ADD VEHICLE</h3>
+                <h3>+</h3>
               </div>
             </button>
+            </div>
 
           </div>
         </div>
@@ -291,10 +293,10 @@ if ($response['success']) {
     <div class="modal fade" role="dialog" id="history-modal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title">Vehicle History</h3>
-            <button type="" button" class=close" data-dismiss="modal">&times;</button>
-          </div>
+        <div class="modal-header">
+              <h3 class="modal-title">Vehicle History</h3>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
             <div class="modal-body">
               <div id="history">
@@ -308,27 +310,12 @@ if ($response['success']) {
       </div>
     </div>
 
-
-
-
-
-
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-
-      </div>
-    </div>
-
-    <hr>
-
-    </div> <!-- /container -->
-
   </main>
 
-  <footer class="container text-center">
+  <footer class="footer">
+    <div>
     <p>© Company 2017-2020</p>
+    </div>
   </footer>
 
 
