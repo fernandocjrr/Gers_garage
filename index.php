@@ -37,19 +37,15 @@ if (isset($userID)) {
 
 
         <li class="nav-item active">
-          <a class="nav-link" href="#">HOME<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.php">HOME<span class="sr-only">(current)</span></a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">SERVICES</a>
+          <a class="nav-link" href="views/iabout.php">ABOUT US</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">ABOUT US</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="#">CONTACT</a>
+          <a class="nav-link" href="views/icontact.php">CONTACT</a>
         </li>
 
       </ul>
@@ -113,12 +109,10 @@ if (isset($userID)) {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron mb-0" style="border-radius:0;">
       <div class="container">
-        <h1 class="display-3">Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a
-          jumbotron and three supporting pieces of content. Use it as a starting point to create something more
-          unique.
+      
+        <h1 class="display-3" style="color: white;"><b>CAR & AUTO REPAIR SERVICES</b></h1>
+        <p>.<br><br><br><br><br><br>
         </p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
       </div>
     </div>
 
@@ -129,27 +123,19 @@ if (isset($userID)) {
         <div class="col-md">
         </div>
         <div class="col-md">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui. </p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        <img src="img/profile_3.png" alt="profile 3" width="250" height="250">
+           <p><i><br>"Ger is a brilliant Mech and also a great guy. Really approachable and makes the whole process easy and quick. Prices are standard as. Work was done super quick and they seem to care about getting the car up and running."</i> </p>
+          <p><b>Kevin Joseph</b></p>
         </div>
         <div class="col-md">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui. </p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        <img src="img/profile_2.png" alt="profile 3" width="250" height="250">
+          <p><i><br>"Ger and his staff are extremely professional mechanics. Nothing is too much trouble. They have always managed to fit me in, with very short notice whenever I’ve had a problem with my car. They always get my car NCT ready and it always passes. I couldn’t recommend this garage enough. I wouldn’t use any other garage now. They are 100% trustworthy."</i> </p>
+          <p><b>Philip McGann</b></p>
         </div>
         <div class="col-md">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
-            porta
-            felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-            fermentum
-            massa justo sit amet risus.</p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        <img src="img/profile_1.png" alt="profile 3" width="250" height="250">
+          <p><i><br>"The guys here were absolutely brilliant - a quick and efficient service and couldnt be more helpful when I needed assistant with a puncture. I Would highly recommend them for any car related need, service , repair etc. Many thanks guys."</i></p>
+          <p><b>Deirdre Ward</b></p>
         </div>
         <div class="col-md">
         </div>

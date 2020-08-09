@@ -35,57 +35,54 @@ if ($response['success']) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html class="body">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=Bootstrap, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Boostrap</title>
+  <title>User's Control Panel</title>
   <link rel="stylesheet" href="../static/css/bootstrap.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+<body class="bg-light body">
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <a class="navbar-brand" href="../index.php"><img src="../img/logo.png" alt="Logo" width="100" height="70"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav m-auto">
 
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="home.php">HOME<span class="sr-only">(current)</span></a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="about.php">ABOUT US</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="contact.php">CONTACT</a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
       </ul>
-      <a class="btn btn-success my-2 my-sm-0" href="#"><i class="fa fa-user-circle-o "> Account</i></a>
+
+      <a class="btn btn-outline-success my-2 my-sm-0" href="#"><i class="fa fa-user-circle-o "> Account</i></a>
       <form method="POST" action="">
         <input type="hidden" value="1" name="logout"><button class="btn btn-outline-info ml-1 my-2 my-sm-0" type="submit"> Logout </button></form>
+
     </div>
   </nav>
+    
 
   <!-----------------------------------------------SIDE BAR---------------------------------------------->
 
-  <main role="main" class="pt-5">
+  <main role="main" class="pt-5 main-custom">
 
     <div class="container-fluid pt-5">
       <div class="row pl-2">
@@ -271,20 +268,18 @@ if ($response['success']) {
 
   </main>
 
-  <footer class="container text-center">
+  <footer class="footer">
+    <div>
     <p>© Company 2017-2020</p>
+    </div>
   </footer>
 
 
 
 
   <script src="../static/js/jquery-3.5.1.min.js"></script>
-  <script src="../static/js/moment.js"></script>
-  <script src="../static/js/bootstrap.bundle.js"></script>
   <script src="../static/js/bootstrap.js"></script>
-  <script src="../static/js/bootstrap.min.js"></script>
   <script src="../static/js/accountadmin_controller.js"></script>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 </body>

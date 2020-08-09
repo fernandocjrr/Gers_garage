@@ -9,13 +9,13 @@ $(document).ready(() => {
         type: "GET",
         dataType: "json",
         success: function (data) {
-            if (data["success"]) {                      //if success in data array = true
+            if (data["success"]) {
                 vehicles = data['data'];
-            } else {                                    //if success in data array = false
-                if (data["exists"]) {                   //if exists in data array = true
-                    alert("Email already used");        //alert that email already in use
-                } else {                                //if success = false and exists = true
-                    alert("An error occurred");         //alert unknow error
+            } else {
+                if (data["exists"]) {
+                    alert("Email already used");
+                } else {
+                    alert("An error occurred");
                 }
             }
         }
@@ -81,7 +81,7 @@ $(document).ready(() => {
     });
 
 
-    $("#addvehicle-form").on("submit", (event) => {                             //if event submit from signup-form
+    $("#addvehicle-form").on("submit", (event) => {
         event.preventDefault();
 
         var serializedData = $("#addvehicle-form").serializeArray();
@@ -93,11 +93,11 @@ $(document).ready(() => {
             data: serializedData,
             success: function (data) {
 
-                if (data["success"]) {                      //if success in data array = true
-                    $('#addvehicle-modal').modal('hide');       //close modal
-                    alert("Vehicle added");                //send alert user signed up
-                } else {                                //if success = false and exists = true
-                    alert("An error occurred");         //alert unknow error
+                if (data["success"]) {
+                    $('#addvehicle-modal').modal('hide');
+                    alert("Vehicle added");
+                } else {
+                    alert("An error occurred");
                 }
             }
 

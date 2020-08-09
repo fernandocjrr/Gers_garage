@@ -27,7 +27,7 @@ class User
         VALUES (?,?,?,?,?,?)");                 //????
 
         if ($stmt) {                                                                                    //if stmt succsessful
-            $stmt->bind_param("ssssss", $fname, $surname, $address, $phone, $sp_email, $sp_password);   //replace ? for parameter
+            $stmt->bind_param("ssssss", $fname, $surname, $phone, $address, $sp_email, $sp_password);   //replace ? for parameter
             $stmt->execute();                                                                           //execute query
             $this->disconnect();                                                                        //disconect from db
             return array("success" => TRUE);                                                            //return array ['success' = true]

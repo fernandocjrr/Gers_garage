@@ -58,7 +58,9 @@ if ($response['success']) {
   <title>User's Control Panel</title>
   <link rel="stylesheet" href="../static/css/bootstrap.css">
   <link rel="stylesheet" href="../static/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  
 </head>
 
 <body class="bg-light body">
@@ -73,20 +75,16 @@ if ($response['success']) {
 
 
 
-        <li class="nav-item active">
-          <a class="nav-link" href="#">HOME<span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" href="home.php">HOME<span class="sr-only">(current)</span></a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">SERVICES</a>
+          <a class="nav-link" href="about.php">ABOUT US</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">ABOUT US</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="#">CONTACT</a>
+          <a class="nav-link" href="contact.php">CONTACT</a>
         </li>
 
       </ul>
@@ -95,8 +93,6 @@ if ($response['success']) {
       <form method="POST" action="">
         <input type="hidden" value="1" name="logout"><button class="btn btn-outline-info ml-1 my-2 my-sm-0" type="submit"> Logout </button></form>
 
-    </div>
-  </nav>
     </div>
   </nav>
 
@@ -322,12 +318,8 @@ if ($response['success']) {
 
 
   <script src="../static/js/jquery-3.5.1.min.js"></script>
-  <script src="../static/js/moment.js"></script>
-  <script src="../static/js/bootstrap.bundle.js"></script>
   <script src="../static/js/bootstrap.js"></script>
-  <script src="../static/js/bootstrap.min.js"></script>
   <script src="../static/js/account_controller.js"></script>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 </body>

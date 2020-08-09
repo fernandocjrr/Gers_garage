@@ -47,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        <li class="nav-item active">
-          <a class="nav-link" href="#">HOME<span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" href="home.php">HOME<span class="sr-only">(current)</span></a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item  active">
           <a class="nav-link" href="about.php">ABOUT US</a>
         </li>
 
@@ -75,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron mb-0" style="border-radius:0;">
       <div class="container">
-      
-        <h1 class="display-3" style="color: white;"><b>CAR & AUTO REPAIR SERVICES</b></h1>
+
+        <h1 class="display-3" style="color: white;"><b>ABOUT US</b></h1>
         <p>.<br><br><br><br><br><br>
         </p>
       </div>
@@ -85,26 +85,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container-fluid p-3 mb-2 bg-danger text-white">
       <!-- Example row of columns -->
       <div class="row">
+      <div class="col-md">
+</div>
+        <div class="col-md">
+          <p>We are a well established family business, with an excellent reputation for quality service at affordable prices.Our success is founded upon a total commitment to customer satisfaction where you can be assured that your interests are considered above all. We are an all makes cars and vans garage services business where you can expect to achieve up to 40% saving on franchised dealer prices. We’ll do the work to the same standards using the latest technology, and our highly experienced and skilled technicians will be happy to provide feedback and facilitate the inspection of replaced parts when requested, We serve local business and private customers with a fully comprehensive garage service and offer a collect and delivery service within a 5 mile radius where required.</p>
+        </div>
+        <div class="col-md">
+</div>
 
-        <div class="col-md">
-        </div>
-        <div class="col-md">
-        <img src="../img/profile_3.png" alt="profile 3" width="250" height="250">
-           <p><i><br>"Ger is a brilliant Mech and also a great guy. Really approachable and makes the whole process easy and quick. Prices are standard as. Work was done super quick and they seem to care about getting the car up and running."</i> </p>
-          <p><b>Kevin Joseph</b></p>
-        </div>
-        <div class="col-md">
-        <img src="../img/profile_2.png" alt="profile 3" width="250" height="250">
-          <p><i><br>"Ger and his staff are extremely professional mechanics. Nothing is too much trouble. They have always managed to fit me in, with very short notice whenever I’ve had a problem with my car. They always get my car NCT ready and it always passes. I couldn’t recommend this garage enough. I wouldn’t use any other garage now. They are 100% trustworthy."</i> </p>
-          <p><b>Philip McGann</b></p>
-        </div>
-        <div class="col-md">
-        <img src="../img/profile_1.png" alt="profile 3" width="250" height="250">
-          <p><i><br>"The guys here were absolutely brilliant - a quick and efficient service and couldnt be more helpful when I needed assistant with a puncture. I Would highly recommend them for any car related need, service , repair etc. Many thanks guys."</i></p>
-          <p><b>Deirdre Ward</b></p>
-        </div>
-        <div class="col-md">
-        </div>
       </div>
     </div>
 

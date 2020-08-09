@@ -25,10 +25,10 @@ $(document).ready(() => {                                                    //i
     });
     
 
-    $("#login").on("submit", (event) => {                             //if event submit
+    $("#login").on("submit", (event) => {
         event.preventDefault();
 
-        var serializedData = $("#login").serializeArray();             //serialize form info into array
+        var serializedData = $("#login").serializeArray();
 
         $.ajax({
             url: "controllers/index.php",
