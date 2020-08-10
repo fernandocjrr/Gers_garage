@@ -27,12 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {							//
 			echo json_encode($response);
 		}
 	} else {
-		$fname = filter_input(INPUT_POST, "fname", FILTER_SANITIZE_EMAIL);
-		$surname = filter_input(INPUT_POST, "surname", FILTER_SANITIZE_EMAIL);
-		$address = filter_input(INPUT_POST, "address", FILTER_SANITIZE_EMAIL);
-		$phone = filter_input(INPUT_POST, "phone", FILTER_SANITIZE_EMAIL);
+		$fname = filter_input(INPUT_POST, "fname", FILTER_SANITIZE_STRING);
+		$surname = filter_input(INPUT_POST, "surname", FILTER_SANITIZE_STRING);
+		$address = filter_input(INPUT_POST, "address", FILTER_SANITIZE_STRING);
+		$phone = filter_input(INPUT_POST, "phone", FILTER_SANITIZE_STRING);
 		$sp_email = filter_input(INPUT_POST, "sp_email", FILTER_SANITIZE_EMAIL);
-		$sp_password = filter_input(INPUT_POST, "sp_password", FILTER_SANITIZE_EMAIL);
+		$sp_password = filter_input(INPUT_POST, "sp_password", FILTER_SANITIZE_STRING);
 
 		$response = $userModel->checkUser($sp_email);
 		if ($response["success"]) {
