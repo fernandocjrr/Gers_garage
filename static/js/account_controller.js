@@ -1,3 +1,21 @@
+/* 
+    # PROCESS HAPPENING ON JavaScript
+    - PROCESS HAPPENING ON CONTROLLER
+    + PROCESS HAPENNING ON MODEL
+    PHP array = array (["position"]=>["value"])
+*/ 
+
+/*  GET ALL VEHICLES DETAILS ON DATABASE
+
+    # When this script is loaded, set a GET request to controllers/account.php:
+        - If GET request receive on controllers/account.php, run getVehicleDetails() method from models/vehicle_details.php
+            + Query to SELECT all vehicle details on DB and store on $response
+            + Return array(["success"] => TRUE, ["data"] => $result) in case of success or array(["success"] => FALSE) if not
+        - If position success = TRUE on  $response send it back to JavaScript 
+        - If position success = FALSE on $response, overwrite response with array(["success"] => FALSE) and send back to JavaScript
+    # If position success on data is TRUE, store data["data"] (all vehicle details).       
+*/
+
 $(document).ready(() => {
 
     var vehicles;
@@ -21,7 +39,16 @@ $(document).ready(() => {
         }
     })
 
+/*  DYNAMICALLY FILL MANUFACTURER DROPDOWN LIST
 
+    # When "Type" input (id = selectType) change
+    # Select the manufaturer input (id = selectManufacturer) but disconsider first option (label)
+    # For loop on all the vehicles variable
+    # First checks if the type of vehicles[i] is the same as elected option on Type input
+    # If type is the same, checks if the the manufacurer of vehicles[i] was not already added to added array
+        # If not added append the value of manufacurer of vehicles[i] on dropdownlist
+    # Add manufacrurer of vehicles[i] on added array (so it doesn't show repeated manufacturers
+*/
 
     $('#selectType').on('change', (e) => {
         let select = $('#selectManufacturer');
@@ -41,6 +68,12 @@ $(document).ready(() => {
             }
         }
     });
+    
+/*  DYNAMICALLY FILL MODEL DROPDOWN LIST
+
+    EXACT SAME LOGIC AS METHOD ABOVE
+  
+*/
 
     $('#selectManufacturer').on('change', (e) => {
         let select = $('#selectModel');
@@ -60,6 +93,12 @@ $(document).ready(() => {
             }
         }
     });
+    
+    /*  DYNAMICALLY FILL YEAR DROPDOWN LIST
+
+    EXACT SAME LOGIC AS METHOD ABOVE
+  
+*/
 
     $('#selectModel').on('change', (e) => {
         let select = $('#selectYear');
@@ -80,6 +119,22 @@ $(document).ready(() => {
         }
     });
 
+    
+    /*  ADD VEHICLE TO COSTUMER'S ACCOUNT
+    
+    # Receive data from form id=ddvehicle-form, and add on serializedData variable
+    # POST data to controllers/account.php
+        - If controller get POST request, store all variables, received on request, in different variables
+        - Use variables as input for addVehicle() method from models/vehicle.php and stores what return on $response
+            + Insert new vehicle with query "INSERT INTO vehicle (licence_details, engine, vehicle_details_id)"
+            + Return the id of the just inserted vehicle
+        - Checks if $response stores the ID, if yes, use this id and the $userID (got on cookie checking) on addOwnership() method of models/own.php
+                + Uses $userID and vehicle id on query "INSERT INTO own (user_id,vehicle_id)"
+            - Return anwser from model to JavaScript
+        - If $response doen't store if return array (["success"]=>FALSE)
+    # If success returned from controller, show "Vehicle added" to user
+    # If sucess = FALSE returned, show "An error occurred"
+    */
 
     $("#addvehicle-form").on("submit", (event) => {
         event.preventDefault();
@@ -103,6 +158,8 @@ $(document).ready(() => {
 
         })
     });
+    
+    
 
     $("#booking-form").on("submit", (event) => {
         event.preventDefault();
