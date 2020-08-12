@@ -1,3 +1,11 @@
+  
+/* 
+    # PROCESS HAPPENING ON JavaScript
+    - PROCESS HAPPENING ON CONTROLLER
+    + PROCESS HAPENNING ON MODEL
+*/ 
+
+
 $(document).ready(() => {
 
     var bookings;
@@ -5,6 +13,31 @@ $(document).ready(() => {
     var parts;
     var staff;
     var part_n = 1;
+    
+    /* ENABLE DATES ON DATEPICKER DATE WITH BOOKING
+    
+        This method load two different datapickers (3 and 4) 3 will only enable the dates with bookings (view by day tab) and 
+        4 will enable all mondays (view by week tab) 
+        
+        DATEPICKER 3
+    
+        # Send a GET request to controller/booking.php
+            + Call cheeckBookingWeight() method from models/booking.php
+                - This method is explaned on last function of  account_controler.js, in this case the weight is not relevant
+                - This will return an array with the dates that have bookings (and weight but not relevant here)
+            + Send data from model to JavaScrpit
+        # Store data from controller on bookings variable and iterate on every item of it
+            # Gets every date on bookings variable and add to EnablesDates array
+        # Again before date will run function for every date
+            # First take month and day of calendar and parse to string, then adds 0 on the left if month or/and day have only one digit (MySQL format)
+            # Formats on MuSQL (YYYY-MM-DD) and checks if date of datepicker is found on EnabledDates array, if yes enable the date on the calendar, if not found disable
+            
+            
+            DATEPICKER 4 (view by week)
+            
+            Using daysOfWeekDisabled, disable every day of the week but not mondays
+            
+    */
 
     $.ajax({
         url: "../controllers/booking.php",
@@ -18,7 +51,7 @@ $(document).ready(() => {
                 }
 
                 $('#datetimepicker3').datepicker("destroy");
-
+                
                 $('#datetimepicker3').datepicker({
 
                     beforeShowDay: function (date) {
@@ -55,6 +88,9 @@ $(document).ready(() => {
         }
     })
 
+    /*
+    */
+    
 
     $('#dateInput').on('change', (e) => {
         today = $('#dateInput').val();
