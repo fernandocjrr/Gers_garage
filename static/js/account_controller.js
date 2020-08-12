@@ -159,7 +159,18 @@ $(document).ready(() => {
         })
     });
     
-    
+    /* BOOKING FUNCTION
+       
+       # Get data from form id = booking-form when submit event, store data on serializedData and post to controllers/booking.php
+            + Stores data from JavaScript on variables and change format of $date to MySQL format
+            + Uses variables as inputs on createBooking() method from models/booking.php
+                - Query "INSERT INTO booking (fix_type, details, date)", and return success TRUE or FALSE and the booking id of the added row
+            + If sucess = TRUE and booking id is not empty uses booking id and vehicle id as inputs on addHaeBooking() method on models/have.php
+                - Query ""INSERT INTO have (vehicle_id, booking_id)" and returns success TRUE or FALSE
+            + Returns success TRUE to JavaScript (if any success FALSE or no booking id, return success FALSE)
+       # If returned data from controllers is contains success = TRUE show alert to user "service Booked"
+       
+    */
 
     $("#booking-form").on("submit", (event) => {
         event.preventDefault();
@@ -183,10 +194,37 @@ $(document).ready(() => {
         })
     });
 
+    /*  Get vehicle ID
+        # Gets the vehicle id of the card when button is clicked on view account.php
+        # Send this vehicle id to a hidden input on booking modal (so it have the vehicle id to use on query on have model
+    */
+    
+    
     createBooking = function (vehicle_id) {
 
         $("#vehID").val(parseInt(vehicle_id));
     }
+    
+    /*  VIEW HISTORY FUNCTION
+        
+        When "view history" button is clicked on view account.php, it used the vehicle id as input to the function below
+        Differently from other modals, this is rendered by JavaScript not by view page (get data first and then oprn modal to user)
+        
+        # POST vehicle id and history = TRUE (history = TRUe to differenciate from other POST requestes) to controller/booking.php
+            + Uses vehicle id on getHistory() method from models/booking.php
+                - Query "SELECT * FROM vehicle   INNER JOIN have ON vehicle.vehicle_id = have.vehicle_id
+                                                 INNER JOIN booking ON booking.booking_id = have.booking_id
+                                                 WHERE vehicle.vehicle_id = ?"
+                - If success return "success" true and all data found, if no  success return FALSE               
+            + If success = TRUE and data not empty (means if found bookings), creates a for loop for every item found
+                + Call getCosts([i]["bookingid"]) method from controller invoice.php (return the costs by booking id not summed) and store answer on $costs_info
+                + If any costs were fround for this booking ([i]["bookingid"]) it will iterate o all found rows and multiply the cost for quantity and sum all the results storing in $total
+                + Set value of [$j]["cost"] (first loop) with $total
+            + Returns $response with cost calculated on ["data"][i]["cost"]
+        # If returned data contains success = TRUE it will first empty the div (id = history) and then append a table with the history data on the same div
+        # If returned data contains success = FALSE means no booking found so no history
+    
+    */
 
     viewHistory = function (vehicle_id) {
         
@@ -235,6 +273,15 @@ $(document).ready(() => {
         
     }
 
+    /* ENABLE DATE
+        
+       To force user to first select the booking type first, before chosing the date
+       This is important to let the system calculate the dates that should be disabled accourding to the chosen type
+       Because different types of bookings have different weights
+       # First get selected type when input changes
+       # Check if its not the label, if not enable date input and load calendar (method below)
+       # While type is Chose a type, calendar wont load
+    */
 
     $('#selectBookingType').on('change', (e) => {
         bookingType = $('#selectBookingType option:selected').val();
@@ -245,6 +292,26 @@ $(document).ready(() => {
             $('#dateInput').prop('disabled', true);
         }
     });
+    
+    /* LOAD CALENDAR ON BOOKING MODAL
+    
+        This function check the dates booked and give weight values to it, it 4 or more it put on diassabled dates array, it also add the value of the selected
+        booking type to the calc, it avoids booking of weight 2 on day that already have 3 of weight, resulting on 5 weight for that date.
+    
+       # First cleans it will send a GET request to controllers/booking.php
+            + Call cheeckBookingWeight() method from models/booking.php
+                   - Using alias to "create" a new table and case to give weight to the different type of bookings, the query should return
+                   grouped by date, the sum of weight of each date found with booking. Now we have weight calculated from booking created.
+                   - If success return TRUE and the "new" table of weights of not return FALSE
+            + Send data from query to JavaScript
+       # If data from controller contains success TRUE, than get the data and put on bookings variable
+        # Iterate on every item of bookings with a for loop (each item is a date and the sum of the weights)
+            # Get the selected type on the dropdown input and atribute a weight value to it
+            # Checks if the value of total + weight given to selected type is bigger than 4
+            # If its bigger add the date on the array DisableDates
+            
+            Continues below....
+    */
 
 
     function loadCalendar() {
@@ -283,6 +350,18 @@ $(document).ready(() => {
                     }
 
                     $('#datetimepicker3').datepicker("destroy");
+                    
+                    /* LOAD DATEPICKER CALENDAR
+                        # Start date +1d so customer cannot book for the same day
+                        # daysOfWeekDisabled = 0 so sundays are not enabled for bookings
+                        # beforeShowDay will run this function for every date on the calendar
+                            # First it gets the selected date and parse to string, than the same with the month but adds on because it considers january = 0
+                            # Checks if day and month are 2 digits, if not, add 0 on the left (so it matches mysql format)
+                            # Concatenate year month and day on mysql format YYYY-MM-DD
+                            # Compares the date is on DisableDates, if indexOF() return different than -1 means date found return false that desable the date
+                            # If date not found returns true enabling the date
+                    */
+                
 
                     $('#datetimepicker3').datepicker({
                         startDate: '+1d',
