@@ -88,7 +88,26 @@ $(document).ready(() => {
         }
     })
 
-    /*
+    /* TABLE OF BOOKINGS BY DAY
+      
+       This JS appends the table with the booking history of the chosen date in the modal on accountAdmin.php view
+       
+       # Gets the date from user input ans store in today
+       # Change date format
+       # POST date and bookingByDay TRUE (to differenciate between POST requests) to controllers/booking.php
+          + If bookingBuDay TRUE, change date format to MySQL format and use it on getBookingDay() method from model booking.php
+              - The model will run a query that will join 7 tables in order to get all the information needed to be displayed on the table
+              - If success TRUE, return success TRUE and all the data on a array, if success FALSE, return only success FALSE
+          + If success TRUE and data not empty (means booking was found)
+              + Iterate with for loop on every booking 
+                  + Using the booking if of the index (["data"][$j]["booking_id"]) as input on getCosts() from models/cost.php
+                    - Query SELECT * FROM cost   LEFT JOIN parts ON cost.part_id = parts.part_id WHERE cost.booking_id = ?  o get all the costs
+                    - If success, return success TRUE and data found, if not return success FALSE
+                  + Store the cost on $costs_info
+                  + If success from cost query is TRUE, iterate every cost with for loop
+                    + This loop will multiply every part cost by the quantity and sum them with any assigned cost by adm
+                    + It will return to the JavaScript success TRUE and the total cost value in an array
+       # If data returned with success TRUE, append the table with all the data that came from the query on the div id = bookingByDay
     */
     
 
@@ -146,6 +165,23 @@ $(document).ready(() => {
         });
 
     });
+  
+  /*   TABLE OF BOOKING BY INTERVAL (ONE WEEK)
+    
+    # Gets the date selected by the user on the calendar, stores in a variable startDate and change format
+    # Adds 6 days on the start date and store it com endDate and change the format
+    # POST the date interval and booking bytweek (diferentiate POST) to controllers/booking.php
+      + Use startDate and EndDate as inputs on method getBookingByInterval() from models/booking.php
+        - query will find all booking in the date interva, joining 7 tables to get all information needed to be displayed on the table 
+        - If success TRUE return success TRUE and data found in a array, if not return FALSE
+      + Return data found on db to JS
+    # Adds all the information found an a table and append it on div id = bookingByWeek in modal (views/accountAdmin.php)
+    
+    
+    Prepares the Generate button to create a new blank page with the date interval, this page show the roster
+    Please check views/roster.php
+    
+  */
 
     $('#weekInput').on('change', (e) => {
         startDate = $('#weekInput').val();
@@ -202,9 +238,31 @@ $(document).ready(() => {
         });
     });
 
+  /* Methods call to use info on Edit booking modal
+    Explanation bellow
+  */
     getParts();
     loadStaffs();
-
+  
+  /* BOOKING EDITOR MODAL FUNCTION
+    
+    # Get data on from id = editbooking-form and stores on serializedData variable
+    # On this data array add editBooking TRUE to diferentiate POST request
+    # POST variable to controllers/booking.php
+      + With form data first run method addCost() from models/cost (only with cost added not parts)
+        - Add info inserted by adm on the db
+      + With a for loop iterate as many times as parts were added (not quantity, but number of inputs, this number is stored on a hidden input "qnt" in the view )
+      + Now for every item, added it one by one on the db (this way we have different lines, more organized and they will be summed when needed)
+      + Now the assigned staff will be deleted (in case adm wants to change previouslly assigned staff) from the database
+      + With the staff id and booking id, call assignStaff() method from models/assign.php
+      + If staff registered successfully, with booking id and status select by user, run editStatus() method from models/booking.php
+        - Update the status on dd, if success return success TRUE, if not, success FALSE
+      + Send success TRUE or FALSe to JS
+    # If success returned from controller, hide edut modal, and show prevuious modal (viewbookings)
+    # Show success alert to user and clean all modal from inputs (date) and the div with table
+  
+  */
+  
     $("#editbooking-form").on("submit", (event) => {
         event.preventDefault();
 
@@ -218,7 +276,6 @@ $(document).ready(() => {
             data: serializedData,
             success: function (data) {
                 if (data["success"]) {
-                    $('#tbediooking-form').trigger('reset');
                     $('#editbooking-modal').modal('hide');
                     $('#viewbookings-modal').modal('show');
                     alert("Booking Edited");
@@ -230,6 +287,11 @@ $(document).ready(() => {
             }
         })
     });
+  
+    /*
+      Method simply clean div and date input in case user closed modal.
+    */
+ 
 
     $("#viewbooking").on("click", (event) => {
 
@@ -238,6 +300,13 @@ $(document).ready(() => {
 
     });
 
+  /* METHOD APPEND DROPDOWN LISTS AND TEXT INPUT WHEN CLICK ON BUTTOM
+    
+    When more parts button is pressed on edit booking model it will append a new dropdown list and text input (for quantity) on div id = partInput
+    The new added inputs will be dinamically named and give the same as ID
+    Affter append a add 1 to part_n in case user press more parts again they will have different names and ID
+    Also sends the number of part_n(number of inputs) to hidden input qnt that will be used later when add parts to database
+  */
 
     $("#moreParts").on("click", (event) => {
         event.preventDefault();
@@ -257,6 +326,13 @@ $(document).ready(() => {
 
 
     });
+  
+  /* POPULATE DROPDOWN LIST WITH STAFF FROM DATABASE
+  
+    # Select dropdown input id = selectStaff and ignore first item (label)
+    # POST to controller that will run query on model that will return all the staffs on de database
+    # With a for loop it will append options (staffs) on the dropdown menu
+  */
 
     function loadStaffs() {
         let select = $('#selectStaff');
@@ -283,6 +359,12 @@ $(document).ready(() => {
 
         });
     }
+  
+  /* SIMPLY GETS THE PARTS ON THE DATABASE
+  
+    With post to controller and then calling model method with query
+    and call the function that will append the items on the dropdown list on all the input fields
+  */
 
 
     function getParts() {
@@ -302,6 +384,14 @@ $(document).ready(() => {
         });
     }
 
+    /* POPULATE DROPDOWN LIST WITH PARTS FROM DATABASE
+    
+    # With a for loop it will checks how many "more Items" (buttons pressed) there are on the modal
+      # Select dropdown input id = selectPart and ignore first item (label)
+      # For every input field it will append the parts in its input dropdown
+    # 
+  */
+  
     function loadParts() {
         for (let n = 0; n < part_n; n++) {
             let select = $('#selectPart_' + n.toString());
@@ -314,6 +404,15 @@ $(document).ready(() => {
             }
         }
     }
+  
+ /*
+ This function will run then adm click on edit buttom
+This methos receive the booking id and send it to a hidden input on the model, so we have this information to register all edit data on this booking ID
+and prepares the invoice buuton to create a blank page with the boooking id to generate a invoice page
+(check views/invoice.php)
+
+ 
+ */
 
 
     editBooking = function (booking_id) {
